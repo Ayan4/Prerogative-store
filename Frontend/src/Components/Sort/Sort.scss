@@ -1,0 +1,100 @@
+@import "../../style.scss";
+@import "../Breakpoints.scss";
+
+.sort-wrapper {
+  position: relative;
+  padding: 4px 5px 4px 0;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.1s ease-out;
+
+  &:hover {
+    background: #eeeeee;
+  }
+
+  .sort {
+    display: flex;
+    align-items: center;
+    padding: 0 5px;
+    justify-content: space-between;
+    // border-radius: 3px 3px 0 0;
+
+    .dd-placeholder {
+      font-family: $font;
+      font-size: 16px;
+      font-weight: 500;
+      color: #636363;
+      margin-right: 10px;
+
+      @include media("<=768px") {
+        margin-right: 0;
+      }
+
+      .seperator {
+        @include media("<=768px") {
+          display: none;
+        }
+      }
+    }
+
+    .dd-title {
+      font-family: $font;
+      font-size: 16px;
+      font-weight: 500;
+      color: #636363;
+
+      @include media("<=768px") {
+        display: none;
+      }
+    }
+
+    .sort-down-chevron {
+      color: #636363;
+      width: 24px;
+      height: 24px;
+      // border: $debug;
+      margin-right: 5px;
+
+      @include media("<=768px") {
+        margin-right: 3px;
+      }
+    }
+  }
+
+  .dd-list {
+    list-style: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    width: 100%;
+    min-width: 150px;
+    border-radius: 3px;
+    background: $white-secondary;
+    padding: 0px 0 0px 0;
+    border: 1px solid #dddddd;
+    box-shadow: 6px 12px 40px -16px rgba(0, 0, 0, 0.75);
+    z-index: 2;
+
+    .dd-list-item {
+      font-family: $font-secondary;
+      color: $black-secondary;
+      padding: 8px 5px 8px 15px;
+      font-size: 14px;
+      font-weight: 400;
+      transition: all 0.1s ease-in-out;
+
+      &:active {
+        transform: scale(0.97);
+      }
+
+      &:hover {
+        background: #e7e7e7;
+        cursor: pointer;
+      }
+    }
+
+    .list-item-border {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+}
