@@ -27,7 +27,6 @@ function App() {
       const response = await axios.get(
         "https://Prerogative-store.ayanshukla.repl.co/products"
       );
-      console.log(response);
       dispatch({ type: "GET_PRODUCTS", payload: response.data });
       setLoading(false);
     };
