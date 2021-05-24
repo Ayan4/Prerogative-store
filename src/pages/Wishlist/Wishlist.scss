@@ -1,0 +1,17 @@
+@import "../../style.scss";
+@import "../../Components/Breakpoints.scss";
+
+.wishlist-item-list {
+  background: $white-secondary;
+  padding-top: 4rem;
+  // border: $debug;
+  min-height: 89vh;
+
+  @include media("<=768px") {
+    padding-top: 2rem;
+  }
+
+  @include media("<=500px") {
+    padding-top: 1.5rem;
+  }
+}

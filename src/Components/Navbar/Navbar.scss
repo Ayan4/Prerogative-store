@@ -1,0 +1,103 @@
+@import "../../style.scss";
+@import "../Breakpoints.scss";
+
+.navbar {
+  align-items: center;
+  padding: 1.5rem;
+  z-index: 3;
+  overflow: hidden;
+
+  @include media(">=1024px") {
+    padding: 1.5rem 2rem 1.5rem 2rem;
+  }
+
+  @include media(">=1234px") {
+    padding: 1.5rem 3rem 1.5rem 3rem;
+  }
+
+  .logo {
+    width: 10.5rem;
+
+    @include media("<=500px") {
+      width: 9rem;
+    }
+  }
+
+  .menu-icon {
+    color: $black-secondary;
+    font-size: 26px;
+    transition: fill 0.1s ease-in-out;
+    cursor: pointer;
+    // border: $debug;
+  }
+
+  .cart-icon {
+    position: relative;
+    // overflow: hidden;
+    // border: $debug;
+    z-index: 100;
+
+    .cart-item-count {
+      position: absolute;
+      top: -11px;
+      right: -5px;
+      font-family: $font-secondary;
+      font-weight: 500;
+      font-size: 11px;
+      background: $main-color;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      color: $white-secondary;
+      z-index: 100;
+      overflow: hidden;
+
+      @include media("<=768px") {
+        top: -9px;
+        // font-weight: 400;
+        font-size: 10px;
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .nav-icons {
+    fill: transparent;
+    transition: all 0.1s ease-in-out;
+    position: relative;
+
+    &:hover {
+      fill: $black-secondary;
+    }
+  }
+
+  .home-nav-icons {
+    fill: transparent;
+    transition: all 0.1s ease-in-out;
+    position: relative;
+
+    &:hover {
+      fill: $white-secondary;
+    }
+  }
+
+  .user-icon {
+    color: $black-secondary;
+    font-size: 24px;
+    margin-left: 24px;
+  }
+}
+
+.navbar-home {
+  @include media(">=1234px") {
+    padding: 1.5rem 3.7rem 1.5rem 3.7rem;
+  }
+}
+
+.navbar-active {
+  box-shadow: 0px 4px 9px 0px rgba(50, 50, 50, 0.15);
+}

@@ -1,0 +1,248 @@
+@import "../../style.scss";
+@import "../../Components//Breakpoints.scss";
+
+.login-page {
+  //   border: $debug;
+  height: 89vh;
+  display: flex;
+  justify-content: space-between;
+
+  @include media("<=768px") {
+    flex-direction: row;
+  }
+
+  .login-page-right {
+    background-image: url("../../assets/login-art.jpg");
+    background-size: cover;
+    background-position: cover;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+
+    @include media("<=768px") {
+      display: none;
+    }
+
+    .login-backdrop {
+      background-color: rgba(0, 0, 0, 0.45);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .login-logo {
+      width: 7rem;
+      position: relative;
+      margin-bottom: 2rem;
+    }
+
+    .login-logo-text {
+      width: 15rem;
+      position: relative;
+    }
+  }
+
+  .login-page-left {
+    margin: 1rem 2rem 2rem 3rem;
+    // border: $debug;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @include media("<=1234px") {
+      margin: 1rem 2rem 2rem 2rem;
+    }
+
+    @include media("<=1024px") {
+      margin: 1rem 1.5rem 2rem 1.5rem;
+    }
+
+    @include media("<=768px") {
+      justify-content: flex-start;
+      width: 100%;
+      margin: 4rem 1.5rem 1.5rem 1.5rem;
+    }
+
+    h1 {
+      font-family: $font;
+      color: $black-secondary;
+      font-weight: 400;
+      font-size: 42px;
+      text-align: center;
+
+      @include media("<=1024px") {
+        font-size: 35px;
+      }
+    }
+
+    .login-form-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      //   border: $debug;
+      margin-top: 4rem;
+
+      @include media("<=1024px") {
+        margin-top: 2rem;
+      }
+
+      @include media("<=768px") {
+        margin-top: 3.5rem;
+      }
+
+      .login-heading {
+        font-family: $font;
+        font-size: 16px;
+        font-weight: 500;
+        color: $black-secondary;
+        letter-spacing: 0.7px;
+        position: relative;
+        // border: $debug;
+
+        span {
+          color: $main-color;
+        }
+
+        &::before {
+          content: " ";
+          width: 6rem;
+          height: 2px;
+          background: $main-color;
+          position: absolute;
+          top: 9px;
+          left: -110px;
+
+          @include media("<=1024px") {
+            left: -60px;
+            width: 3rem;
+          }
+        }
+
+        &::after {
+          content: " ";
+          width: 6rem;
+          height: 2px;
+          background: $main-color;
+          position: absolute;
+          top: 9px;
+          right: -110px;
+
+          @include media("<=1024px") {
+            right: -60px;
+            width: 3rem;
+          }
+        }
+      }
+
+      .login-form {
+        // border: $debug;
+        display: flex;
+        flex-direction: column;
+        // width: 95%;
+        width: 100%;
+        margin-top: 4rem;
+
+        @include media("<=1024px") {
+          margin-top: 2rem;
+        }
+
+        @include media("<=768px") {
+          margin-top: 3rem;
+        }
+
+        .login-input-field {
+          border: none;
+          background: transparent;
+          border-bottom: 1px solid #a5a5a5;
+          width: 100%;
+          margin-bottom: 3rem;
+          padding: 0.7rem 0.7rem 0.7rem 0rem;
+          outline: transparent;
+          font-size: 16px;
+          font-family: $font;
+          font-weight: 500;
+          color: black;
+
+          &:focus {
+            // border-bottom: 2px solid $black-secondary;
+            border-bottom: 1px solid $main-color;
+          }
+        }
+
+        .warning-modal {
+          border-left: 3px solid #c73535;
+          border-bottom: 3px solid #c73535;
+          border-top: 1px solid #c73535;
+          border-right: 1px solid #c73535;
+          display: flex;
+          align-items: center;
+          padding: 0.2rem;
+          margin-bottom: 0.5rem;
+
+          .warning-icon {
+            font-size: 22px;
+            color: #c73535;
+            margin-right: 0.5rem;
+          }
+
+          p {
+            color: #c73535;
+            font-family: $font;
+            font-size: 16px;
+            font-weight: 500;
+            letter-spacing: 0.4px;
+          }
+        }
+
+        .login-btn-wrapper {
+          position: relative;
+
+          img {
+            position: absolute;
+            // border: $debug;
+            width: 2rem;
+            bottom: 13px;
+            left: 50%;
+            transform: translate(-50%);
+            z-index: 1;
+          }
+
+          .login-btn {
+            margin-top: 1rem;
+            width: 100%;
+            padding: 0.7rem;
+            background: $black-secondary;
+            color: $white-secondary;
+            font-family: $font-secondary;
+            font-size: 17px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: all 0.1s ease-out;
+
+            &:hover {
+              opacity: 0.97;
+            }
+          }
+        }
+      }
+
+      .signup-text {
+        margin-top: 3rem;
+        font-family: $font-secondary;
+        color: $black-secondary;
+
+        .signup-btn {
+          color: $main-color;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
