@@ -4,17 +4,29 @@ import ProductCard from "../../Components/ProductCard/ProductCard";
 import Categories from "../../Components/Categories/Categories";
 import Sort from "../../Components/Sort/Sort";
 import "./ProductListing.scss";
+import { useLocation } from "react-router-dom";
 import { useProduct } from "../../context/product-context";
 
 function ProductListing() {
   const {
     products,
-    // wishlist,
     sortBy,
     showFastDelivery,
     showOutOfStock,
     dispatch
   } = useProduct();
+
+  const useQuery = () => {
+    return new URLSearchParams(useLocation().search);
+  };
+  const queryParam = useQuery().get("category");
+
+  const getCategoryData = () => {
+    if (queryParam) {
+      return products.filter(item => item.category === queryParam);
+    }
+    return products;
+  };
 
   const getFilteredData = (productsArr, showFastDelivery, showOutOfStock) => {
     return productsArr
@@ -34,7 +46,9 @@ function ProductListing() {
     return productsArr;
   };
 
-  const sortedData = getSortedData(products, sortBy);
+  const productsOfCategory = getCategoryData();
+  // console.log(productsOfCategory);
+  const sortedData = getSortedData(productsOfCategory, sortBy);
   const filteredData = getFilteredData(
     sortedData,
     showFastDelivery,

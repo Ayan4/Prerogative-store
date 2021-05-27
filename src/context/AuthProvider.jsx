@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
         setUser(response.data.user);
         localStorage?.setItem("user", JSON.stringify(response.data.user));
       }
-      // console.log(response);
       return response;
     } catch (error) {
       return error.response;

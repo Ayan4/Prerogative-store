@@ -4,6 +4,7 @@ const ProductContext = createContext();
 
 const initialState = {
   products: [],
+  categories: [],
   cart: [],
   wishlist: [],
   sortBy: null,
@@ -18,6 +19,7 @@ export const ProductProvider = ({ children }) => {
     <ProductContext.Provider
       value={{
         products: state.products,
+        categories: state.categories,
         cart: state.cart,
         wishlist: state.wishlist,
         sortBy: state.sortBy,

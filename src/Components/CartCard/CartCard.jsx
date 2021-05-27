@@ -31,7 +31,7 @@ function CartCard() {
     );
     setLoading(false);
     if (data.success) {
-      dispatch({ type: "REMOVECART", payload: cartItem });
+      dispatch({ type: "REMOVE_CART", payload: cartItem });
     } else {
       console.log(data.msg);
     }
@@ -44,7 +44,7 @@ function CartCard() {
     );
     setLoading(false);
     if (data.success) {
-      dispatch({ type: "MOVETOWISHLIST", payload: data.wishlistItem });
+      dispatch({ type: "MOVE_TO_WISHLIST", payload: data.wishlistItem });
       removeCartHandler(product);
     }
   };
@@ -72,7 +72,7 @@ function CartCard() {
         );
         setLoading(false);
         if (response.data.success) {
-          dispatch({ type: "REMOVECART", payload: cartItem });
+          dispatch({ type: "REMOVE_CART", payload: cartItem });
         }
       }
     } else {

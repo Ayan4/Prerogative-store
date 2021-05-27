@@ -3,9 +3,13 @@
 
 .product-card-link {
   text-decoration: none;
+  display: flex;
 }
 
 .product-card {
+  display: flex;
+  flex-direction: column;
+
   @include media("<=768px") {
     padding: 0px;
     border-radius: 0px;
@@ -26,23 +30,18 @@
       position: absolute;
       z-index: 2;
       align-items: center;
-      // border: $debug;
       padding: 0.5rem;
-      // background: rgba(0, 0, 0, 0.1);
       background: rgba(0, 0, 0, 0.5);
       top: 50%;
-      // left: 1.9rem;
       left: 50%;
       transform: translate(-50%, -50%);
 
       .hanger-icon {
-        // color: rgb(49, 49, 49);
         color: $white-secondary;
         font-size: 3rem;
       }
 
       p {
-        // color: $black-secondary;
         color: $white-secondary;
         font-weight: 500;
         text-align: center;
@@ -60,6 +59,11 @@
         fill: $black-secondary;
       }
     }
+  }
+  
+  .flexible{
+    flex-grow: 1;
+    border: $debug;
   }
 
   .product-addToCart-btn {

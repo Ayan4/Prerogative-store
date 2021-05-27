@@ -2,25 +2,25 @@
 
 export const productReducer = (state, action) => {
   switch (action.type) {
-    case "sort":
+    case "SORT":
       return {
         ...state,
         sortBy: action.payload
       };
 
-    case "FAST-DELIVERY":
+    case "FAST_DELIVERY":
       return {
         ...state,
         showFastDelivery: !state.showFastDelivery
       };
 
-    case "OUT-OF-STOCK":
+    case "OUT_OF_STOCK":
       return {
         ...state,
         showOutOfStock: !state.showOutOfStock
       };
 
-    case "ADDTOCART":
+    case "ADD_TO_CART":
       return {
         ...state,
         cart: [...state.cart, action.payload],
@@ -34,13 +34,13 @@ export const productReducer = (state, action) => {
         cart: state.cart.filter(item => item._id !== action.payload._id)
       };
 
-    case "REMOVEWISHLIST":
+    case "REMOVE_WISHLIST":
       return {
         ...state,
         wishlist: state.wishlist.filter(item => item._id !== action.payload._id)
       };
 
-    case "MOVETOCART":
+    case "MOVE_TO_CART":
       return {
         ...state,
         wishlist: state.wishlist.filter(
@@ -49,13 +49,13 @@ export const productReducer = (state, action) => {
         cart: [...state.cart, action.payload]
       };
 
-    case "REMOVECART":
+    case "REMOVE_CART":
       return {
         ...state,
         cart: state.cart.filter(item => item._id !== action.payload._id)
       };
 
-    case "MOVETOWISHLIST":
+    case "MOVE_TO_WISHLIST":
       return {
         ...state,
         cart: state.cart.filter(item => item._id !== action.payload._id),
@@ -88,13 +88,19 @@ export const productReducer = (state, action) => {
         products: action.payload
       };
 
-    case "GETCART":
+    case "GET_CATEGORIES":
+      return {
+        ...state,
+        categories: action.payload
+      };
+
+    case "GET_CART":
       return {
         ...state,
         cart: action.payload
       };
 
-    case "GETWISHLIST":
+    case "GET_WISHLIST":
       return {
         ...state,
         wishlist: action.payload

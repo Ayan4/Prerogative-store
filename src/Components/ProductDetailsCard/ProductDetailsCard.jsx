@@ -28,6 +28,7 @@ function ProductDetails() {
     brand,
     inStock,
     size,
+    category,
     fastDelivery
   } = product;
 
@@ -70,7 +71,7 @@ function ProductDetails() {
       );
       setLoading(false);
       if (data.success) {
-        dispatch({ type: "ADDTOCART", payload: data.product });
+        dispatch({ type: "ADD_TO_CART", payload: data.product });
         // setCartActive(true);
       } else {
         console.log(data.msg);
@@ -101,7 +102,7 @@ function ProductDetails() {
       {loading ? (
         <ScreenLoader circleSpinner bgLight />
       ) : (
-        <div className="product-details">
+        <div key={_id} className="product-details">
           <div key={_id} className="flexbox-wrapper">
             <div className="flexbox-left-box">
               <div className="product-img-wrapper">
@@ -124,7 +125,7 @@ function ProductDetails() {
             </div>
             <div className="flexbox-right-box">
               <div className="product-details-name">
-                <p className="product-details-category">suits</p>
+                <p className="product-details-category">{category}</p>
                 <p className="product-details-title">
                   <span className="product-details-brand">{brand} </span> {name}
                 </p>

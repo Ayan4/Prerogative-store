@@ -21,6 +21,8 @@ function App() {
   const { dispatch } = useProduct();
   const [loading, setLoading] = useState("");
 
+  // console.log(user);
+
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
@@ -34,24 +36,33 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await axios.get(
+        "https://Prerogative-store.ayanshukla.repl.co/category"
+      );
+      // console.log(response);
+      dispatch({ type: "GET_CATEGORIES", payload: response.data.category });
+    };
+    fetchCategories();
+  }, [dispatch]);
+
+  useEffect(() => {
     const fetchCartItems = async () => {
       const response = await axios.get(
         "https://Prerogative-store.ayanshukla.repl.co/cart"
       );
-      dispatch({ type: "GETCART", payload: response.data.cart });
+      dispatch({ type: "GET_CART", payload: response.data.cart });
     };
-    fetchCartItems();
-  }, [dispatch]);
 
-  useEffect(() => {
     const fetchWishlistItems = async () => {
       const response = await axios.get(
         "https://Prerogative-store.ayanshukla.repl.co/wishlist"
       );
-      dispatch({ type: "GETWISHLIST", payload: response.data.wishlist });
+      dispatch({ type: "GET_WISHLIST", payload: response.data.wishlist });
     };
-    fetchWishlistItems();
-  }, [dispatch]);
+
+    user && fetchCartItems() && fetchWishlistItems();
+  }, [dispatch, user]);
 
   return (
     <div className="App-container">

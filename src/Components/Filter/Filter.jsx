@@ -3,7 +3,6 @@ import "./Filter.scss";
 import { BiCheck } from "react-icons/bi";
 import { useState, useRef, useEffect } from "react";
 import { useProduct } from "../../context/product-context";
-import { Link } from "react-router-dom";
 
 function Filter() {
   const node = useRef(null);
@@ -29,24 +28,21 @@ function Filter() {
 
       {open && (
         <ul className="filter-list">
-          <Link to={{ search: "?filter=fastDelivery" }}>
-            <li
-              onClick={() => {
-                dispatch({ type: "FAST-DELIVERY" });
-              }}
-              className="filter-list-item list-item-border"
-            >
-              Fast delivery
-              <div className="filter-checkbox">
-                {showFastDelivery && (
-                  <BiCheck className="filter-check"></BiCheck>
-                )}
-              </div>
-            </li>
-          </Link>
           <li
             onClick={() => {
-              dispatch({ type: "OUT-OF-STOCK" });
+              dispatch({ type: "FAST_DELIVERY" });
+            }}
+            className="filter-list-item list-item-border"
+          >
+            Fast delivery
+            <div className="filter-checkbox">
+              {showFastDelivery && <BiCheck className="filter-check"></BiCheck>}
+            </div>
+          </li>
+
+          <li
+            onClick={() => {
+              dispatch({ type: "OUT_OF_STOCK" });
             }}
             className="filter-list-item"
           >

@@ -18,8 +18,6 @@ function Login() {
   const { register, handleSubmit } = useForm();
   const { state } = useLocation();
 
-  // console.log(state);
-
   const loginHandler = async data => {
     setLoading(true);
     const response = await loginWithCreds(data.email, data.password);

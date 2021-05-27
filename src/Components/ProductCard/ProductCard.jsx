@@ -14,8 +14,6 @@ function ProductCard({ productData, dispatch }) {
   const navigate = useNavigate();
   const { cart, wishlist } = useProduct();
 
-  // console.log(productData);
-
   useEffect(() => {
     cart.map(
       item => item.product._id === productData._id && setCartActive(true)
@@ -38,7 +36,7 @@ function ProductCard({ productData, dispatch }) {
       setLoading(false);
       if (data.success) {
         setCartActive(true);
-        dispatch({ type: "ADDTOCART", payload: data.product });
+        dispatch({ type: "ADD_TO_CART", payload: data.product });
       } else {
         console.log(data.msg);
       }
@@ -87,7 +85,7 @@ function ProductCard({ productData, dispatch }) {
         </div>
         <div className="product-info">
           <div className="product-info-box">
-            <p className="product-category">suits</p>
+            <p className="product-category">{productData.category}</p>
             <p className="product-brand">{productData.brand}</p>
             <p className="product-title">{productData.name}</p>
           </div>

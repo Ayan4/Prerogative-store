@@ -24,7 +24,7 @@ function WishlistCard() {
     );
     setLoading(false);
     if (data.success) {
-      dispatch({ type: "REMOVEWISHLIST", payload: product });
+      dispatch({ type: "REMOVE_WISHLIST", payload: product });
     } else {
       console.log("error - can't delete item");
     }
@@ -38,7 +38,7 @@ function WishlistCard() {
     setLoading(false);
     if (data.success) {
       removeWishlistHandler(product);
-      dispatch({ type: "MOVETOCART", payload: data.product });
+      dispatch({ type: "MOVE_TO_CART", payload: data.product });
     }
   };
 

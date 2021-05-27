@@ -2,7 +2,6 @@ import "./Sort.scss";
 import { FiChevronDown } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
 import { useProduct } from "../../context/product-context";
-import { Link } from "react-router-dom";
 
 function Sort() {
   const node = useRef(null);
@@ -24,7 +23,7 @@ function Sort() {
     const title = e.target.innerText;
     setDefaultTitle(title);
     setOpen(!open);
-    dispatch({ type: "sort", payload: title });
+    dispatch({ type: "SORT", payload: title });
   };
 
   return (
@@ -38,14 +37,13 @@ function Sort() {
       </div>
       {open && (
         <ul className="dd-list">
-          <Link to={{ search: "?sort=low2high" }}>
-            <li
-              onClick={sortItemHandler}
-              className="dd-list-item list-item-border"
-            >
-              Low To High
-            </li>
-          </Link>
+          <li
+            onClick={sortItemHandler}
+            className="dd-list-item list-item-border"
+          >
+            Low To High
+          </li>
+
           <li onClick={sortItemHandler} className="dd-list-item">
             High To Low
           </li>
