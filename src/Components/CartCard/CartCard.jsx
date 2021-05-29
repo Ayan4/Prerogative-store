@@ -1,6 +1,7 @@
 import "./CartCard.scss";
 import { useState } from "react";
 import { useProduct } from "../../context/product-context";
+import { useAuth } from "../../context/AuthProvider";
 import { BiTrash, BiPlus, BiMinus } from "react-icons/bi";
 import { FiBookmark, FiShoppingCart } from "react-icons/fi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
@@ -12,6 +13,7 @@ import axios from "axios";
 function CartCard() {
   const { cart, wishlist, dispatch } = useProduct();
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
 
   const itemInWishlist = id => {
     return wishlist.map(item => item.product._id).includes(id);
@@ -27,7 +29,7 @@ function CartCard() {
   const removeCartHandler = async cartItem => {
     setLoading(true);
     const { data } = await axios.delete(
-      `https://Prerogative-store.ayanshukla.repl.co/cart/${cartItem._id}`
+      `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${cartItem._id}`
     );
     setLoading(false);
     if (data.success) {
@@ -40,11 +42,11 @@ function CartCard() {
   const moveToWishlistHandler = async product => {
     setLoading(true);
     const { data } = await axios.post(
-      `https://Prerogative-store.ayanshukla.repl.co/wishlist/${product.product._id}`
+      `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${product.product._id}`
     );
     setLoading(false);
     if (data.success) {
-      dispatch({ type: "MOVE_TO_WISHLIST", payload: data.wishlistItem });
+      dispatch({ type: "SET_WISHLIST", payload: data.wishlist.wishlistItems });
       removeCartHandler(product);
     }
   };
@@ -54,7 +56,7 @@ function CartCard() {
       if (cartItem.quantity > 1) {
         setLoading(true);
         const response = await axios.patch(
-          `https://Prerogative-store.ayanshukla.repl.co/cart/${cartItem._id}`,
+          `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${cartItem._id}`,
           {
             quantity: cartItem.quantity - 1
           }
@@ -68,7 +70,7 @@ function CartCard() {
       } else {
         setLoading(true);
         const response = await axios.delete(
-          `https://Prerogative-store.ayanshukla.repl.co/cart/${cartItem._id}`
+          `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${cartItem._id}`
         );
         setLoading(false);
         if (response.data.success) {
@@ -78,7 +80,7 @@ function CartCard() {
     } else {
       setLoading(true);
       const response = await axios.patch(
-        `https://Prerogative-store.ayanshukla.repl.co/cart/${cartItem._id}`,
+        `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${cartItem._id}`,
         {
           quantity: cartItem.quantity + 1
         }

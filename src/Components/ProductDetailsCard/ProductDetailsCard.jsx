@@ -9,6 +9,7 @@ import axios from "axios";
 import fastDeliveryIcon from "../../assets/icons/fast-delivery.svg";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "../../context/product-context";
+import { useAuth } from "../../context/AuthProvider";
 
 function ProductDetails() {
   const [activeSize, setActiveSize] = useState(null);
@@ -19,6 +20,7 @@ function ProductDetails() {
   const { productID } = useParams();
   const navigate = useNavigate();
   const { cart, wishlist, dispatch } = useProduct();
+  const { user } = useAuth();
 
   const {
     _id,
@@ -67,11 +69,11 @@ function ProductDetails() {
     } else {
       setLoading(true);
       const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/cart/${_id}`
+        `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${_id}`
       );
       setLoading(false);
       if (data.success) {
-        dispatch({ type: "ADD_TO_CART", payload: data.product });
+        dispatch({ type: "SET_CART", payload: data.response.cartItems });
         // setCartActive(true);
       } else {
         console.log(data.msg);
@@ -85,11 +87,14 @@ function ProductDetails() {
     } else {
       setLoading(true);
       const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${_id}`
+        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${_id}`
       );
       setLoading(false);
       if (data.success) {
-        dispatch({ type: "WISHLIST", payload: data.wishlistItem });
+        dispatch({
+          type: "SET_WISHLIST",
+          payload: data.wishlist.wishlistItems
+        });
         setWishlistActive(true);
       } else {
         console.log(data.msg);
@@ -103,7 +108,7 @@ function ProductDetails() {
         <ScreenLoader circleSpinner bgLight />
       ) : (
         <div key={_id} className="product-details">
-          <div key={_id} className="flexbox-wrapper">
+          <div className="flexbox-wrapper">
             <div className="flexbox-left-box">
               <div className="product-img-wrapper">
                 {!inStock && (

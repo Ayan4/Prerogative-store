@@ -1,10 +1,10 @@
 import "./ProductCard.scss";
 import { FiBookmark, FiShoppingCart } from "react-icons/fi";
 import { BiPlus, BiCloset } from "react-icons/bi";
-// import ScreenLoader from "../../pages/ScreenLoader/ScreenLoader";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProduct } from "../../context/product-context";
+import { useAuth } from "../../context/AuthProvider";
 import axios from "axios";
 
 function ProductCard({ productData, dispatch }) {
@@ -13,14 +13,13 @@ function ProductCard({ productData, dispatch }) {
   const [cartActive, setCartActive] = useState(false);
   const navigate = useNavigate();
   const { cart, wishlist } = useProduct();
+  const { user } = useAuth();
 
   useEffect(() => {
-    cart.map(
-      item => item.product._id === productData._id && setCartActive(true)
-    );
+    cart.map(item => item._id === productData._id && setCartActive(true));
 
     wishlist.map(
-      item => item.product._id === productData._id && setWishlistActive(true)
+      item => item._id === productData._id && setWishlistActive(true)
     );
   }, [cart, wishlist, productData._id]);
 
@@ -31,12 +30,12 @@ function ProductCard({ productData, dispatch }) {
     } else {
       setLoading(true);
       const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/cart/${productData._id}`
+        `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${productData._id}`
       );
       setLoading(false);
       if (data.success) {
         setCartActive(true);
-        dispatch({ type: "ADD_TO_CART", payload: data.product });
+        dispatch({ type: "SET_CART", payload: data.response.cartItems });
       } else {
         console.log(data.msg);
       }
@@ -48,11 +47,14 @@ function ProductCard({ productData, dispatch }) {
     if (!wishlistActive) {
       setLoading(true);
       const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${productData._id}`
+        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${productData._id}`
       );
       setLoading(false);
       if (data.success) {
-        dispatch({ type: "WISHLIST", payload: data.wishlistItem });
+        dispatch({
+          type: "SET_WISHLIST",
+          payload: data.wishlist.wishlistItems
+        });
         setWishlistActive(true);
       } else {
         console.log(data.msg);

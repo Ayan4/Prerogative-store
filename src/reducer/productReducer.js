@@ -1,5 +1,3 @@
-// import data from "../data";
-
 export const productReducer = (state, action) => {
   switch (action.type) {
     case "SORT":
@@ -20,46 +18,16 @@ export const productReducer = (state, action) => {
         showOutOfStock: !state.showOutOfStock
       };
 
-    case "ADD_TO_CART":
-      return {
-        ...state,
-        cart: [...state.cart, action.payload],
-        wishlist: state.wishlist.filter(item => item._id !== action.payload._id)
-      };
-
-    case "WISHLIST":
-      return {
-        ...state,
-        wishlist: [...state.wishlist, action.payload],
-        cart: state.cart.filter(item => item._id !== action.payload._id)
-      };
-
     case "REMOVE_WISHLIST":
       return {
         ...state,
         wishlist: state.wishlist.filter(item => item._id !== action.payload._id)
       };
 
-    case "MOVE_TO_CART":
-      return {
-        ...state,
-        wishlist: state.wishlist.filter(
-          item => item._id !== action.payload._id
-        ),
-        cart: [...state.cart, action.payload]
-      };
-
     case "REMOVE_CART":
       return {
         ...state,
         cart: state.cart.filter(item => item._id !== action.payload._id)
-      };
-
-    case "MOVE_TO_WISHLIST":
-      return {
-        ...state,
-        cart: state.cart.filter(item => item._id !== action.payload._id),
-        wishlist: [...state.wishlist, action.payload]
       };
 
     case "INCREASE":
@@ -94,13 +62,13 @@ export const productReducer = (state, action) => {
         categories: action.payload
       };
 
-    case "GET_CART":
+    case "SET_CART":
       return {
         ...state,
         cart: action.payload
       };
 
-    case "GET_WISHLIST":
+    case "SET_WISHLIST":
       return {
         ...state,
         wishlist: action.payload

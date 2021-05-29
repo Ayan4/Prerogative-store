@@ -1,6 +1,7 @@
 import "./WishlistCard.scss";
 import { useState } from "react";
 import { useProduct } from "../../context/product-context";
+import { useAuth } from "../../context/AuthProvider";
 import { BiTrash } from "react-icons/bi";
 import { FiShoppingCart, FiBookmark } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
@@ -12,6 +13,7 @@ import ScreenLoader from "../../pages/ScreenLoader/ScreenLoader";
 function WishlistCard() {
   const { wishlist, cart, dispatch } = useProduct();
   const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
 
   const itemInCart = id => {
     return cart.map(item => item.product._id).includes(id);
@@ -20,7 +22,7 @@ function WishlistCard() {
   const removeWishlistHandler = async product => {
     setLoading(true);
     const { data } = await axios.delete(
-      `https://Prerogative-store.ayanshukla.repl.co/wishlist/${product._id}`
+      `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${product._id}`
     );
     setLoading(false);
     if (data.success) {
@@ -33,12 +35,12 @@ function WishlistCard() {
   const moveToCartHandler = async product => {
     setLoading(true);
     const { data } = await axios.post(
-      `https://Prerogative-store.ayanshukla.repl.co/cart/${product.product._id}`
+      `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${product.product._id}`
     );
     setLoading(false);
     if (data.success) {
       removeWishlistHandler(product);
-      dispatch({ type: "MOVE_TO_CART", payload: data.product });
+      dispatch({ type: "SET_CART", payload: data.response.cartItems });
     }
   };
 

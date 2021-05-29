@@ -21,13 +21,11 @@ function App() {
   const { dispatch } = useProduct();
   const [loading, setLoading] = useState("");
 
-  // console.log(user);
-
   useEffect(() => {
     const fetchProducts = async () => {
       setLoading(true);
       const response = await axios.get(
-        "https://Prerogative-store.ayanshukla.repl.co/products"
+        "https://Prerogative-store.ayanshukla.repl.co/products/"
       );
       dispatch({ type: "GET_PRODUCTS", payload: response.data });
       setLoading(false);
@@ -40,7 +38,6 @@ function App() {
       const response = await axios.get(
         "https://Prerogative-store.ayanshukla.repl.co/category"
       );
-      // console.log(response);
       dispatch({ type: "GET_CATEGORIES", payload: response.data.category });
     };
     fetchCategories();
@@ -49,16 +46,19 @@ function App() {
   useEffect(() => {
     const fetchCartItems = async () => {
       const response = await axios.get(
-        "https://Prerogative-store.ayanshukla.repl.co/cart"
+        `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}`
       );
-      dispatch({ type: "GET_CART", payload: response.data.cart });
+      dispatch({ type: "SET_CART", payload: response.data.cart.cartItems });
     };
 
     const fetchWishlistItems = async () => {
       const response = await axios.get(
-        "https://Prerogative-store.ayanshukla.repl.co/wishlist"
+        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}`
       );
-      dispatch({ type: "GET_WISHLIST", payload: response.data.wishlist });
+      dispatch({
+        type: "SET_WISHLIST",
+        payload: response.data.wishlist.wishlistItems
+      });
     };
 
     user && fetchCartItems() && fetchWishlistItems();
