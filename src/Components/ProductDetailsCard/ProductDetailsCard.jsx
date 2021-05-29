@@ -30,6 +30,7 @@ function ProductDetails() {
     brand,
     inStock,
     size,
+    description,
     category,
     fastDelivery
   } = product;
@@ -176,10 +177,7 @@ function ProductDetails() {
                 </div>
               </div>
 
-              <p className="product-details-description">
-                Navy blue solid formal blazer, has a notched lapel collar, long
-                sleeves, single-breasted with buttons.
-              </p>
+              <p className="product-details-description">{description}</p>
 
               <div className="product-details-btns">
                 <button onClick={wishlistHandler} className="wishlist-btn">

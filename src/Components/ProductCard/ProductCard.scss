@@ -9,6 +9,7 @@
 .product-card {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
   @include media("<=768px") {
     padding: 0px;
@@ -59,11 +60,6 @@
         fill: $black-secondary;
       }
     }
-  }
-
-  .flexible {
-    flex-grow: 1;
-    border: $debug;
   }
 
   .product-addToCart-btn {
