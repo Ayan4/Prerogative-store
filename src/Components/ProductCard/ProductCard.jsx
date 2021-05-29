@@ -25,40 +25,48 @@ function ProductCard({ productData, dispatch }) {
 
   const cartBtnHandler = async event => {
     event.preventDefault();
-    if (cartActive) {
-      navigate("/cart");
-    } else {
-      setLoading(true);
-      const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${productData._id}`
-      );
-      setLoading(false);
-      if (data.success) {
-        setCartActive(true);
-        dispatch({ type: "SET_CART", payload: data.response.cartItems });
+    if (user) {
+      if (cartActive) {
+        navigate("/cart");
       } else {
-        console.log(data.msg);
+        setLoading(true);
+        const { data } = await axios.post(
+          `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${productData._id}`
+        );
+        setLoading(false);
+        if (data.success) {
+          setCartActive(true);
+          dispatch({ type: "SET_CART", payload: data.response.cartItems });
+        } else {
+          console.log(data.msg);
+        }
       }
+    } else {
+      navigate("/login");
     }
   };
 
   const wishlistBtnHandler = async event => {
     event.preventDefault();
-    if (!wishlistActive) {
-      setLoading(true);
-      const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${productData._id}`
-      );
-      setLoading(false);
-      if (data.success) {
-        dispatch({
-          type: "SET_WISHLIST",
-          payload: data.wishlist.wishlistItems
-        });
-        setWishlistActive(true);
-      } else {
-        console.log(data.msg);
+    if (user) {
+      if (!wishlistActive) {
+        setLoading(true);
+        const { data } = await axios.post(
+          `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${productData._id}`
+        );
+        setLoading(false);
+        if (data.success) {
+          dispatch({
+            type: "SET_WISHLIST",
+            payload: data.wishlist.wishlistItems
+          });
+          setWishlistActive(true);
+        } else {
+          console.log(data.msg);
+        }
       }
+    } else {
+      navigate("/login");
     }
   };
 

@@ -19,7 +19,8 @@ function WishlistCard() {
     return cart.map(item => item.product._id).includes(id);
   };
 
-  const removeWishlistHandler = async product => {
+  const removeWishlistHandler = async (product, event) => {
+    event.preventDefault();
     setLoading(true);
     const { data } = await axios.delete(
       `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${product._id}`
@@ -32,14 +33,15 @@ function WishlistCard() {
     }
   };
 
-  const moveToCartHandler = async product => {
+  const moveToCartHandler = async (product, event) => {
+    event.preventDefault();
     setLoading(true);
     const { data } = await axios.post(
       `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${product.product._id}`
     );
     setLoading(false);
     if (data.success) {
-      removeWishlistHandler(product);
+      removeWishlistHandler(product, event);
       dispatch({ type: "SET_CART", payload: data.response.cartItems });
     }
   };
@@ -55,80 +57,88 @@ function WishlistCard() {
         {wishlist.length > 0 ? (
           wishlist.map(item => {
             return (
-              <div className="wishlist-card" key={item.product._id}>
-                <div className="wishlist-product-info-wrapper">
-                  <div className="wishlist-img-div">
-                    <img
-                      className="wishlist-card-img"
-                      src={item.product.image}
-                      alt=""
-                    />
-                  </div>
-                  <div className="wishlist-product-info">
-                    <div className="wishlist-brand">
-                      <p className="wishlist-brand-text">
+              <Link
+                className="wishlist-card-link"
+                to={{ pathname: `/product-detail/${item.product._id}` }}
+              >
+                <div className="wishlist-card" key={item.product._id}>
+                  <div className="wishlist-product-info-wrapper">
+                    <div className="wishlist-img-div">
+                      <img
+                        className="wishlist-card-img"
+                        src={item.product.image}
+                        alt=""
+                      />
+                    </div>
+                    <div className="wishlist-product-info">
+                      <div className="wishlist-brand">
+                        <p className="wishlist-brand-text">
+                          {" "}
+                          {item.product.brand}{" "}
+                        </p>
+
+                        <div className="wishlist-price-box">
+                          <p className="wishlist-card-price">
+                            ${item.product.price}
+                          </p>
+                        </div>
+                      </div>
+                      <p className="wishlist-item-name">
                         {" "}
-                        {item.product.brand}{" "}
+                        {item.product.name}{" "}
                       </p>
 
-                      <div className="wishlist-price-box">
-                        <p className="wishlist-card-price">
-                          ${item.product.price}
-                        </p>
-                      </div>
-                    </div>
-                    <p className="wishlist-item-name"> {item.product.name} </p>
-
-                    <div className="wishlist-size">
-                      <div className="wishlist-size-box">
-                        <p className="wishlist-size-text">Size : </p>
-                        <div className="wishlist-size-button">
-                          {item.product.selectedSize
-                            ? item.product.selectedSize
-                            : "S"}
+                      <div className="wishlist-size">
+                        <div className="wishlist-size-box">
+                          <p className="wishlist-size-text">Size : </p>
+                          <div className="wishlist-size-button">
+                            {item.product.selectedSize
+                              ? item.product.selectedSize
+                              : "S"}
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="wishlist-btn-box">
-                  <button
-                    onClick={() => removeWishlistHandler(item)}
-                    className="wishlist-remove-btn"
-                  >
-                    <BiTrash className="wishlist-btn-icon"></BiTrash>
-                    Remove
-                  </button>
-                  {!item.product.inStock ? (
+                  <div className="wishlist-btn-box">
                     <button
-                      disabled={!item.product.inStock && true}
-                      style={{
-                        color: "#1f1f1f",
-                        opacity: "0.8",
-                        fontWeight: "500"
-                      }}
-                      className="wishlist-wishlist-btn"
+                      onClick={event => removeWishlistHandler(item, event)}
+                      className="wishlist-remove-btn"
                     >
-                      Out Of Stock
+                      <BiTrash className="wishlist-btn-icon"></BiTrash>
+                      Remove
                     </button>
-                  ) : itemInCart(item.product._id) ? (
-                    <Link className="cart-link" to="/cart">
-                      <button className="wishlist-wishlist-btn">
-                        Go To Cart
-                        <AiOutlineArrowRight className="wishlist-btn-icon-arrow"></AiOutlineArrowRight>
+                    {!item.product.inStock ? (
+                      <button
+                        disabled={!item.product.inStock && true}
+                        style={{
+                          color: "#1f1f1f",
+                          opacity: "0.8",
+                          fontWeight: "500"
+                        }}
+                        className="wishlist-wishlist-btn"
+                      >
+                        Out Of Stock
                       </button>
-                    </Link>
-                  ) : (
-                    <button
-                      onClick={() => moveToCartHandler(item)}
-                      className="wishlist-wishlist-btn"
-                    >
-                      <FiShoppingCart className="wishlist-btn-icon"></FiShoppingCart>
-                      Move To Cart
-                    </button>
-                  )}
+                    ) : itemInCart(item.product._id) ? (
+                      <Link className="cart-link" to="/cart">
+                        <button className="wishlist-wishlist-btn">
+                          Go To Cart
+                          <AiOutlineArrowRight className="wishlist-btn-icon-arrow"></AiOutlineArrowRight>
+                        </button>
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={event => moveToCartHandler(item, event)}
+                        className="wishlist-wishlist-btn"
+                      >
+                        <FiShoppingCart className="wishlist-btn-icon"></FiShoppingCart>
+                        Move To Cart
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })
         ) : (

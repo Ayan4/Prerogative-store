@@ -26,7 +26,8 @@ function CartCard() {
 
   const cartTotalSum = cartTotal.reduce((a, b) => a + b, 0);
 
-  const removeCartHandler = async cartItem => {
+  const removeCartHandler = async (cartItem, event) => {
+    event.preventDefault();
     setLoading(true);
     const { data } = await axios.delete(
       `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${cartItem._id}`
@@ -39,7 +40,8 @@ function CartCard() {
     }
   };
 
-  const moveToWishlistHandler = async product => {
+  const moveToWishlistHandler = async (product, event) => {
+    event.preventDefault();
     setLoading(true);
     const { data } = await axios.post(
       `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${product.product._id}`
@@ -47,11 +49,12 @@ function CartCard() {
     setLoading(false);
     if (data.success) {
       dispatch({ type: "SET_WISHLIST", payload: data.wishlist.wishlistItems });
-      removeCartHandler(product);
+      removeCartHandler(product, event);
     }
   };
 
-  const updateQuantityHandler = async (type, cartItem) => {
+  const updateQuantityHandler = async (type, cartItem, event) => {
+    event.preventDefault();
     if (type === "decrease") {
       if (cartItem.quantity > 1) {
         setLoading(true);
@@ -111,84 +114,94 @@ function CartCard() {
         {cart.length > 0 ? (
           cart.map(item => {
             return (
-              <div className="cart-card" key={item.product._id}>
-                <div className="cart-product-info-wrapper">
-                  <div className="cart-img-div">
-                    <img
-                      className="cart-card-img"
-                      src={item.product.image}
-                      alt=""
-                    />
-                  </div>
-                  <div className="cart-product-info">
-                    <div className="cart-brand">
-                      <p className="cart-brand-text"> {item.product.brand} </p>
-
-                      <div className="cart-price-box">
-                        <p className="cart-card-price">${item.product.price}</p>
-                      </div>
+              <Link
+                className="cart-card-link"
+                to={{ pathname: `/product-detail/${item.product._id}` }}
+              >
+                <div className="cart-card" key={item.product._id}>
+                  <div className="cart-product-info-wrapper">
+                    <div className="cart-img-div">
+                      <img
+                        className="cart-card-img"
+                        src={item.product.image}
+                        alt=""
+                      />
                     </div>
-                    <p className="cart-item-name"> {item.product.name} </p>
+                    <div className="cart-product-info">
+                      <div className="cart-brand">
+                        <p className="cart-brand-text">
+                          {" "}
+                          {item.product.brand}{" "}
+                        </p>
 
-                    <div className="cart-size">
-                      <div className="cart-size-box">
-                        <p className="cart-size-text">Size : </p>
-                        <div className="cart-size-button">
-                          {item.product.selectedSize
-                            ? item.product.selectedSize
-                            : "S"}
+                        <div className="cart-price-box">
+                          <p className="cart-card-price">
+                            ${item.product.price}
+                          </p>
                         </div>
                       </div>
+                      <p className="cart-item-name"> {item.product.name} </p>
 
-                      <div className="cart-quantity-box">
-                        <p className="cart-quantity-text">Qty : </p>
-                        <button
-                          onClick={() =>
-                            updateQuantityHandler("decrease", item)
-                          }
-                          className="cart-decrease-item cart-quantity-btn"
-                        >
-                          <BiMinus className="cart-quantity-icon"></BiMinus>
-                        </button>
-                        <p className="cart-item-quantity">{item.quantity}</p>
-                        <button
-                          onClick={() =>
-                            updateQuantityHandler("increase", item)
-                          }
-                          className="cart-increase-item cart-quantity-btn"
-                        >
-                          <BiPlus className="cart-quantity-icon"></BiPlus>
-                        </button>
+                      <div className="cart-size">
+                        <div className="cart-size-box">
+                          <p className="cart-size-text">Size : </p>
+                          <div className="cart-size-button">
+                            {item.product.selectedSize
+                              ? item.product.selectedSize
+                              : "S"}
+                          </div>
+                        </div>
+
+                        <div className="cart-quantity-box">
+                          <p className="cart-quantity-text">Qty : </p>
+                          <button
+                            onClick={event =>
+                              updateQuantityHandler("decrease", item, event)
+                            }
+                            className="cart-decrease-item cart-quantity-btn"
+                          >
+                            <BiMinus className="cart-quantity-icon"></BiMinus>
+                          </button>
+                          <p className="cart-item-quantity">{item.quantity}</p>
+                          <button
+                            onClick={event =>
+                              updateQuantityHandler("increase", item, event)
+                            }
+                            className="cart-increase-item cart-quantity-btn"
+                          >
+                            <BiPlus className="cart-quantity-icon"></BiPlus>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="cart-btn-box">
-                  <button
-                    onClick={() => removeCartHandler(item)}
-                    className="cart-remove-btn"
-                  >
-                    <BiTrash className="cart-btn-icon"></BiTrash>
-                    Remove
-                  </button>
-                  {itemInWishlist(item.product._id) ? (
-                    <Link to="/wishlist" className="wishlist-link">
-                      <button className="cart-wishlist-btn">
-                        <AiOutlineArrowLeft className="cart-btn-icon-arrow"></AiOutlineArrowLeft>
-                        Go To Wishlist
-                      </button>
-                    </Link>
-                  ) : (
+                  <div className="cart-btn-box">
                     <button
-                      onClick={() => moveToWishlistHandler(item)}
-                      className="cart-wishlist-btn"
+                      onClick={event => removeCartHandler(item, event)}
+                      className="cart-remove-btn"
                     >
-                      <FiBookmark className="cart-btn-icon"></FiBookmark>
-                      Move To Wishlist
+                      <BiTrash className="cart-btn-icon"></BiTrash>
+                      Remove
                     </button>
-                  )}
+                    {itemInWishlist(item.product._id) ? (
+                      <Link to="/wishlist" className="wishlist-link">
+                        <button className="cart-wishlist-btn">
+                          <AiOutlineArrowLeft className="cart-btn-icon-arrow"></AiOutlineArrowLeft>
+                          Go To Wishlist
+                        </button>
+                      </Link>
+                    ) : (
+                      <button
+                        onClick={event => moveToWishlistHandler(item, event)}
+                        className="cart-wishlist-btn"
+                      >
+                        <FiBookmark className="cart-btn-icon"></FiBookmark>
+                        Move To Wishlist
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })
         ) : (

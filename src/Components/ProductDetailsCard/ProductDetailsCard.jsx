@@ -47,6 +47,11 @@ function ProductDetails() {
 
     cart.map(item => item.product._id === _id && setCartActive(true));
     wishlist.map(item => item.product._id === _id && setWishlistActive(true));
+
+    return () => {
+      setActiveSize(false);
+      setWishlistActive(false);
+    };
   }, [productID, cart, wishlist, _id]);
 
   const sizeHandler = async size => {
@@ -64,41 +69,49 @@ function ProductDetails() {
   };
 
   const cartHandler = async () => {
-    if (cartActive) {
-      navigate("/cart");
-    } else {
-      setLoading(true);
-      const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${_id}`
-      );
-      setLoading(false);
-      if (data.success) {
-        dispatch({ type: "SET_CART", payload: data.response.cartItems });
-        // setCartActive(true);
+    if (user) {
+      if (cartActive) {
+        navigate("/cart");
       } else {
-        console.log(data.msg);
+        setLoading(true);
+        const { data } = await axios.post(
+          `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${_id}`
+        );
+        setLoading(false);
+        if (data.success) {
+          dispatch({ type: "SET_CART", payload: data.response.cartItems });
+          // setCartActive(true);
+        } else {
+          console.log(data.msg);
+        }
       }
+    } else {
+      navigate("/login");
     }
   };
 
   const wishlistHandler = async () => {
-    if (wishlistActive) {
-      navigate("/wishlist");
-    } else {
-      setLoading(true);
-      const { data } = await axios.post(
-        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${_id}`
-      );
-      setLoading(false);
-      if (data.success) {
-        dispatch({
-          type: "SET_WISHLIST",
-          payload: data.wishlist.wishlistItems
-        });
-        setWishlistActive(true);
+    if (user) {
+      if (wishlistActive) {
+        navigate("/wishlist");
       } else {
-        console.log(data.msg);
+        setLoading(true);
+        const { data } = await axios.post(
+          `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${_id}`
+        );
+        setLoading(false);
+        if (data.success) {
+          dispatch({
+            type: "SET_WISHLIST",
+            payload: data.wishlist.wishlistItems
+          });
+          setWishlistActive(true);
+        } else {
+          console.log(data.msg);
+        }
       }
+    } else {
+      navigate("/login");
     }
   };
 

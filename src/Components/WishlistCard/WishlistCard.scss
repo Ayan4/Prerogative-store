@@ -45,6 +45,10 @@
       }
     }
 
+    .wishlist-card-link {
+      text-decoration: none;
+    }
+
     .wishlist-card {
       box-shadow: 0 6px 42px -11px rgba(0, 0, 0, 0.2);
       display: flex;
@@ -173,6 +177,7 @@
                 font-family: $font-secondary;
                 margin-right: 10px;
                 letter-spacing: 0.3px;
+                color: $black-secondary;
 
                 @include media("<=500px") {
                   margin-right: 7px;
@@ -190,6 +195,7 @@
                 font-family: $font-secondary;
                 border-radius: 50px;
                 font-size: 14px;
+                color: $black-secondary;
 
                 @include media("<=500px") {
                   font-size: 10px;
