@@ -7,11 +7,11 @@ const childSchema = new mongoose.Schema({
 },
 );
 
-const schema = new mongoose.Schema({
+const cartSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, ref: "user"},
 
   cartItems: [childSchema]
 
 }, {timestamps: true});
 
-module.exports = mongoose.model('Cart', schema);
+module.exports = mongoose.model('Cart', cartSchema);
