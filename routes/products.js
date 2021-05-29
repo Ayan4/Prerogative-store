@@ -1,4 +1,4 @@
-const _ = require("lodash");
+const { extend } = require("lodash");
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
@@ -18,7 +18,7 @@ router.post("/:id", async (req, res) => {
   try {
     let product = await Product.findById(req.params.id);
     const productUpdates = req.body;
-    product = _.extend(product, productUpdates);
+    product = extend(product, productUpdates);
     const response = await product.save();
     res.json({ success: true, response });
   } catch (err) {

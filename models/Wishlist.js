@@ -1,11 +1,14 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const schema = new mongoose.Schema({
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Products",
-    required: true
-  }
+const childSchema = new mongoose.Schema({
+  product: { type: mongoose.Schema.Types.ObjectId, ref: 'Products'}
 });
 
-module.exports = mongoose.model("Wishlist", schema);
+const schema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, ref: "user"},
+
+  wishlistItems: [childSchema]
+
+}, {timestamps: true});
+
+module.exports = mongoose.model('Wishlist', schema);
