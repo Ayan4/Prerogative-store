@@ -1,7 +1,7 @@
 import "./Sort.scss";
 import { FiChevronDown } from "react-icons/fi";
 import { useState, useRef, useEffect } from "react";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 
 function Sort() {
   const node = useRef(null);

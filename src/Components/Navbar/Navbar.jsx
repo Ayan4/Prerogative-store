@@ -6,7 +6,7 @@ import { HiMenuAlt1 } from "react-icons/hi";
 import "./Navbar.scss";
 import SideDrawer from "../SideDrawer/SideDrawer";
 import { Link } from "react-router-dom";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 import { useAuth } from "../../context/AuthProvider";
 
 function Navbar({ homePage }) {
@@ -16,6 +16,7 @@ function Navbar({ homePage }) {
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
   const { user } = useAuth();
   const { cart } = useProduct();
+  const iconWhiteColor = "#f7f7f7";
 
   useEffect(() => {
     const showLogoHandler = () => {
@@ -68,7 +69,9 @@ function Navbar({ homePage }) {
           : "navbar"
       }
     >
-      {showSideDrawer && <SideDrawer setShowSideDrawer={setShowSideDrawer} />}
+      {showSideDrawer && (
+        <SideDrawer showSideDrawer setShowSideDrawer={setShowSideDrawer} />
+      )}
       {showLogo ? (
         <Link to="/">
           <img
@@ -88,7 +91,7 @@ function Navbar({ homePage }) {
       ) : (
         <HiMenuAlt1
           onClick={() => setShowSideDrawer(true)}
-          style={{ color: homePage && "#f7f7f7" }}
+          style={{ color: homePage && iconWhiteColor }}
           className="menu-icon"
         ></HiMenuAlt1>
       )}
@@ -96,7 +99,7 @@ function Navbar({ homePage }) {
       <div className="nav-items">
         <Link
           to="/wishlist"
-          style={{ color: homePage && "#f7f7f7" }}
+          style={{ color: homePage && iconWhiteColor }}
           className="wishlist-icon"
         >
           <FiBookmark
@@ -105,7 +108,7 @@ function Navbar({ homePage }) {
         </Link>
         <Link
           to="/cart"
-          style={{ color: homePage && "#f7f7f7" }}
+          style={{ color: homePage && iconWhiteColor }}
           className="cart-icon"
         >
           {cart.length > 0 && (
@@ -117,7 +120,7 @@ function Navbar({ homePage }) {
         </Link>
         <Link
           to={!user ? "/login" : "/profile"}
-          style={{ color: homePage && "#f7f7f7" }}
+          style={{ color: homePage && iconWhiteColor }}
           className="user-icon"
         >
           <FiUser

@@ -7,7 +7,7 @@ import heroImage from "../../assets/home-image-group.jpg";
 import { BsChevronRight } from "react-icons/bs";
 import Navbar from "../../Components/Navbar/Navbar";
 import "./Home.scss";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 
 function Home({ clickHandler }) {
   const { products } = useProduct();

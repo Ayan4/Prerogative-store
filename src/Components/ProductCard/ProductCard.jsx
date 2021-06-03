@@ -3,7 +3,7 @@ import { FiBookmark, FiShoppingCart } from "react-icons/fi";
 import { BiPlus, BiCloset } from "react-icons/bi";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 import { useAuth } from "../../context/AuthProvider";
 import axios from "axios";
 

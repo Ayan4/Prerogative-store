@@ -3,14 +3,16 @@ import { AiOutlineInsertRowLeft } from "react-icons/ai";
 import { CgChevronRight } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 
-function Categories() {
+function Categories({ showSideDrawer, setShowSideDrawer }) {
   const useQuery = () => {
     return new URLSearchParams(useLocation().search);
   };
   const queryParam = useQuery().get("category");
   const { categories } = useProduct();
+
+  const location = useLocation();
 
   return (
     <div className="categories">
@@ -21,6 +23,7 @@ function Categories() {
       <div className="categories-list">
         <Link
           to="/products"
+          onClick={() => showSideDrawer && setShowSideDrawer(false)}
           className={
             !queryParam ? "categories-item category-active" : "categories-item"
           }
@@ -38,7 +41,12 @@ function Categories() {
           return (
             <Link
               key={item._id}
-              to={`?category=${item.category}`}
+              to={
+                location.pathname !== "/products"
+                  ? `/products?category=${item.category}`
+                  : `?category=${item.category}`
+              }
+              onClick={() => showSideDrawer && setShowSideDrawer(false)}
               className={
                 queryParam === item.category
                   ? "categories-item category-active"
@@ -56,23 +64,6 @@ function Categories() {
             </Link>
           );
         })}
-
-        {/* <Link to="/products" className="categories-item category-active">
-          <p>Suits</p>
-          <CgChevronRight className="categories-chevron-icon categories-chevron-icon-active" />
-        </Link>
-        <Link to="/products" className="categories-item">
-          <p>Shoes</p>
-          <CgChevronRight className="categories-chevron-icon" />
-        </Link>
-        <Link to="/products" className="categories-item">
-          <p>Ties</p>
-          <CgChevronRight className="categories-chevron-icon" />
-        </Link>
-        <Link to="/products" className="categories-item">
-          <p>Belts</p>
-          <CgChevronRight className="categories-chevron-icon" />
-        </Link> */}
       </div>
     </div>
   );

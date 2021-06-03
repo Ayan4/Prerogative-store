@@ -1,0 +1,132 @@
+@import "../../style.scss";
+@import "../Breakpoints.scss";
+
+.cart-container {
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+  max-width: 1200px;
+  // border: $debug;
+
+  @include media("<=768px") {
+    flex-direction: column;
+  }
+
+  .cart-card-wrapper {
+    width: 70%;
+    padding-left: 1rem;
+    // border: $debug;
+    display: flex;
+    flex-direction: column;
+
+    @include media("<=768px") {
+      padding: 1rem 1rem;
+      width: 100%;
+      margin-bottom: 10rem;
+      // border: $debug;
+    }
+
+    .empty-cart-wrapper {
+      // border: $debug;
+      align-self: center;
+    }
+
+    .cart-page-heading {
+      margin: 0 0 1.5rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid $border-color;
+      color: $main-color;
+
+      div {
+        display: flex;
+      }
+
+      .cart-page-icon {
+        font-size: 25px;
+        margin-right: 8px;
+
+        @include media("<=768px") {
+          font-size: 22px;
+        }
+      }
+
+      .cart-page-heading-text {
+        font-family: $font;
+        font-size: 24px;
+        font-weight: 500;
+
+        @include media("<=768px") {
+          font-size: 21px;
+        }
+      }
+
+      .cart-item-count {
+        font-weight: 500;
+        font-family: $font;
+
+        .cart-item-count-figure {
+          font-family: $font-secondary;
+          font-weight: 400;
+        }
+      }
+    }
+  }
+
+  .cart-total-box {
+    width: 30%;
+    padding: 0 1rem 0 2rem;
+    display: flex;
+    flex-direction: column;
+    background-color: $white-secondary;
+
+    @include media("<=768px") {
+      width: 100%;
+      // height: 20%;
+      padding: 1rem 1rem;
+      position: fixed;
+      bottom: 0;
+      // top: 0;
+      background-color: $white-secondary;
+      border-top: 1px solid #c9c9c9;
+      box-shadow: 0 -12px 11px -6px rgba(0, 0, 0, 0.12);
+    }
+
+    .cart-total-info {
+      display: flex;
+      justify-content: space-between;
+      padding: 2rem 0.5rem;
+      font-family: $font-secondary;
+      font-size: 18px;
+      box-shadow: 0 6px 42px -11px rgba(0, 0, 0, 0.18);
+      border: 1px solid $border-color;
+      border-radius: 3px;
+
+      @include media("<=768px") {
+        background: $white-secondary;
+        border: 1px solid $border-color;
+        padding: 1.5rem 0.5rem;
+      }
+    }
+
+    .place-order {
+      border: 2px solid $main-color;
+      padding: 7px 0;
+      color: $main-color;
+      background: $white-secondary;
+      font-size: 18px;
+      font-family: $font-secondary;
+      font-weight: 500;
+      margin-top: 0.5rem;
+      cursor: pointer;
+      transition: all 0.1s ease-out;
+      border-radius: 3px;
+
+      &:active {
+        filter: brightness(0.9);
+      }
+    }
+  }
+}

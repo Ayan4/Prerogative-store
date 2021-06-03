@@ -1,50 +1,11 @@
 @charset "UTF-8";
 
-//     _            _           _                           _ _
-//    (_)          | |         | |                         | (_)
-//     _ _ __   ___| |_   _  __| | ___   _ __ ___   ___  __| |_  __ _
-//    | | '_ \ / __| | | | |/ _` |/ _ \ | '_ ` _ \ / _ \/ _` | |/ _` |
-//    | | | | | (__| | |_| | (_| |  __/ | | | | | |  __/ (_| | | (_| |
-//    |_|_| |_|\___|_|\__,_|\__,_|\___| |_| |_| |_|\___|\__,_|_|\__,_|
-//
-//      Simple, elegant and maintainable media queries in Sass
-//                        v1.4.9
-//
-//        https://eduardoboucas.github.io/include-media
-//
-//         Authors: Eduardo Boucas (@eduardoboucas)
-//                  Kitty Giraudel (@kittygiraudel)
-//
-//      This project is licensed under the terms of the MIT license
-////
-/// include-media library public configuration
-/// @author Eduardo Boucas
-/// @access public
-////
-
-///
-/// Creates a list of global breakpoints
-///
-/// @example scss - Creates a single breakpoint with the label `phone`
-///  $breakpoints: ('phone': 320px);
-///
 $breakpoints: (
   "phone": 320px,
   "tablet": 768px,
   "desktop": 1024px
 ) !default;
 
-///
-/// Creates a list of static expressions or media types
-///
-/// @example scss - Creates a single media type (screen)
-///  $media-expressions: ('screen': 'screen');
-///
-/// @example scss - Creates a static expression with logical disjunction (OR operator)
-///  $media-expressions: (
-///    'retina2x': '(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)'
-///  );
-///
 $media-expressions: (
   "screen": "screen",
   "print": "print",

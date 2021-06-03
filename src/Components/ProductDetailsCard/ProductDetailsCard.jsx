@@ -8,7 +8,7 @@ import ScreenLoader from "../../pages/ScreenLoader/ScreenLoader";
 import axios from "axios";
 import fastDeliveryIcon from "../../assets/icons/fast-delivery.svg";
 import { useParams, useNavigate } from "react-router-dom";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 import { useAuth } from "../../context/AuthProvider";
 
 function ProductDetails() {
@@ -121,7 +121,7 @@ function ProductDetails() {
       {loading ? (
         <ScreenLoader circleSpinner bgLight />
       ) : (
-        <div key={_id} className="product-details">
+        <div className="product-details">
           <div className="flexbox-wrapper">
             <div className="flexbox-left-box">
               <div className="product-img-wrapper">
@@ -163,6 +163,7 @@ function ProductDetails() {
                   {size?.map(sizeItem => {
                     return (
                       <button
+                        key={_id}
                         onClick={() => sizeHandler(sizeItem)}
                         className={
                           activeSize === sizeItem

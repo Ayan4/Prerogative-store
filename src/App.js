@@ -13,7 +13,7 @@ import Profile from "./pages/Profile/Profile";
 import Error from "./pages/ErrorPage/Error";
 import ScreenLoader from "./pages/ScreenLoader/ScreenLoader";
 import { useAuth } from "./context/AuthProvider";
-import { useProduct } from "./context/product-context";
+import { useProduct } from "./context/productProvider";
 import PrivateRoute from "./PrivateRoutes/PrivateRoute";
 
 function App() {

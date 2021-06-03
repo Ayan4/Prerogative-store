@@ -6,7 +6,7 @@ import { VscChromeClose } from "react-icons/vsc";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthProvider";
 
-function SideDrawer({ setShowSideDrawer }) {
+function SideDrawer({ showSideDrawer, setShowSideDrawer }) {
   const { user } = useAuth();
 
   return (
@@ -33,7 +33,7 @@ function SideDrawer({ setShowSideDrawer }) {
             </div>
           </div>
         )}
-        <Categories />
+        <Categories showSideDrawer setShowSideDrawer={setShowSideDrawer} />
         {!user && (
           <div className="login-signup-side-drawer">
             <Link className="side-drawer-btns side-drawer-login" to="/login">

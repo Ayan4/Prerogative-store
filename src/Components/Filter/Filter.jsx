@@ -2,7 +2,7 @@ import { BiFilterAlt } from "react-icons/bi";
 import "./Filter.scss";
 import { BiCheck } from "react-icons/bi";
 import { useState, useRef, useEffect } from "react";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 
 function Filter() {
   const node = useRef(null);

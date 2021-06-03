@@ -12,7 +12,6 @@
   }
 
   .filter {
-    //   border: $debug;
     display: flex;
     align-items: center;
 
@@ -33,7 +32,6 @@
 
   .filter-list {
     list-style: none;
-    // border: $debug;
     position: absolute;
     top: 35px;
     left: 0;
@@ -61,20 +59,15 @@
       }
 
       .filter-checkbox {
-        // height: 20px;
-        // width: 20px;
         margin-left: 15px;
-        // border: 1px solid $black-secondary;
         display: flex;
         justify-content: center;
         align-items: center;
 
         .filter-check {
-          // border: 1px solid $border-color;
           border-radius: 2px;
           height: 21px;
           width: 21px;
-          // color: #929292;
           color: $black-secondary;
         }
       }

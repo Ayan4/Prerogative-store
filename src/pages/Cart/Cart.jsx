@@ -1,5 +1,5 @@
 import Navbar from "../../Components/Navbar/Navbar";
-import CartCard from "../../Components/CartCard/CartCard";
+import CartContainer from "../../Components/CartCard/CartContainer";
 import "./Cart.scss";
 
 function Cart() {
@@ -7,7 +7,7 @@ function Cart() {
     <>
       <Navbar />
       <div className="cart-item-list">
-        <CartCard />
+        <CartContainer />
       </div>
     </>
   );

@@ -5,7 +5,7 @@ import Categories from "../../Components/Categories/Categories";
 import Sort from "../../Components/Sort/Sort";
 import "./ProductListing.scss";
 import { useLocation } from "react-router-dom";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 
 function ProductListing() {
   const {

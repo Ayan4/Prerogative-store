@@ -1,6 +1,6 @@
 import "./WishlistCard.scss";
 import { useState } from "react";
-import { useProduct } from "../../context/product-context";
+import { useProduct } from "../../context/productProvider";
 import { useAuth } from "../../context/AuthProvider";
 import { BiTrash } from "react-icons/bi";
 import { FiShoppingCart, FiBookmark } from "react-icons/fi";
@@ -29,7 +29,7 @@ function WishlistCard() {
     if (data.success) {
       dispatch({ type: "REMOVE_WISHLIST", payload: product });
     } else {
-      console.log("error - can't delete item");
+      alert("error - can't delete item");
     }
   };
 
