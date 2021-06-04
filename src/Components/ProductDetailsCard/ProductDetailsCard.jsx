@@ -19,7 +19,7 @@ function ProductDetails() {
   const [cartActive, setCartActive] = useState(false);
   const { productID } = useParams();
   const navigate = useNavigate();
-  const { cart, wishlist, dispatch } = useProduct();
+  const { products, cart, wishlist, dispatch } = useProduct();
   const { user } = useAuth();
 
   const {
@@ -36,15 +36,8 @@ function ProductDetails() {
   } = product;
 
   useEffect(() => {
-    const getProductById = async () => {
-      setLoading(true);
-      const response = await axios.get(
-        `https://Prerogative-store.ayanshukla.repl.co/products/${productID}`
-      );
-      setProduct(response.data);
-      setLoading(false);
-    };
-    getProductById();
+    const foundProduct = products.find(item => item._id === productID);
+    setProduct(foundProduct);
 
     cart.map(item => item.product._id === _id && setCartActive(true));
     wishlist.map(item => item.product._id === _id && setWishlistActive(true));
@@ -53,7 +46,7 @@ function ProductDetails() {
       setActiveSize(false);
       setWishlistActive(false);
     };
-  }, [productID, cart, wishlist, _id]);
+  }, [productID, products, _id, cart, wishlist]);
 
   const sizeHandler = async size => {
     setLoading(true);
@@ -163,7 +156,7 @@ function ProductDetails() {
                   {size?.map(sizeItem => {
                     return (
                       <button
-                        key={_id}
+                        key={sizeItem}
                         onClick={() => sizeHandler(sizeItem)}
                         className={
                           activeSize === sizeItem

@@ -58,6 +58,7 @@ function WishlistCard() {
           wishlist.map(item => {
             return (
               <Link
+                key={item.product._id}
                 className="wishlist-card-link"
                 to={{ pathname: `/product-detail/${item.product._id}` }}
               >
