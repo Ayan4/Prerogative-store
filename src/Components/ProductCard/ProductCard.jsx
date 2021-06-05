@@ -31,7 +31,7 @@ function ProductCard({ productData, dispatch }) {
       } else {
         setLoading(true);
         const { data } = await axios.post(
-          `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${productData._id}`
+          `https://prerogative-store.herokuapp.com/cart/${user._id}/${productData._id}`
         );
         setLoading(false);
         if (data.success) {
@@ -52,7 +52,7 @@ function ProductCard({ productData, dispatch }) {
       if (!wishlistActive) {
         setLoading(true);
         const { data } = await axios.post(
-          `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${productData._id}`
+          `https://prerogative-store.herokuapp.com/wishlist/${user._id}/${productData._id}`
         );
         setLoading(false);
         if (data.success) {

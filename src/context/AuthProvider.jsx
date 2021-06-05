@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const loginWithCreds = async (email, password) => {
     try {
       const response = await axios.post(
-        "https://Prerogative-store.ayanshukla.repl.co/user/login",
+        "https://prerogative-store.herokuapp.com/user/login",
         {
           email,
           password
@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   const signUpWithCreds = async (name, email, password) => {
     try {
       const response = await axios.post(
-        "https://Prerogative-store.ayanshukla.repl.co/user/signup",
+        "https://prerogative-store.herokuapp.com/user/signup",
         {
           name,
           email,

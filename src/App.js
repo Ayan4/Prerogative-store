@@ -25,9 +25,9 @@ function App() {
     const fetchProducts = async () => {
       setLoading(true);
       const response = await axios.get(
-        "https://Prerogative-store.ayanshukla.repl.co/products/"
+        "https://prerogative-store.herokuapp.com/products"
       );
-      dispatch({ type: "GET_PRODUCTS", payload: response.data });
+      dispatch({ type: "GET_PRODUCTS", payload: response.data.products });
       setLoading(false);
     };
     fetchProducts();
@@ -36,7 +36,7 @@ function App() {
   useEffect(() => {
     const fetchCategories = async () => {
       const response = await axios.get(
-        "https://Prerogative-store.ayanshukla.repl.co/category"
+        "https://prerogative-store.herokuapp.com/category"
       );
       dispatch({ type: "GET_CATEGORIES", payload: response.data.category });
     };
@@ -46,14 +46,14 @@ function App() {
   useEffect(() => {
     const fetchCartItems = async () => {
       const response = await axios.get(
-        `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}`
+        `https://prerogative-store.herokuapp.com/cart/${user._id}`
       );
       dispatch({ type: "SET_CART", payload: response.data.cart.cartItems });
     };
 
     const fetchWishlistItems = async () => {
       const response = await axios.get(
-        `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}`
+        `https://prerogative-store.herokuapp.com/wishlist/${user._id}`
       );
       dispatch({
         type: "SET_WISHLIST",

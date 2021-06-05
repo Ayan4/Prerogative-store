@@ -51,7 +51,7 @@ function ProductDetails() {
   const sizeHandler = async size => {
     setLoading(true);
     const { data } = await axios.post(
-      `https://Prerogative-store.ayanshukla.repl.co/products/${_id}`,
+      `https://prerogative-store.herokuapp.com/products/${_id}`,
       {
         selectedSize: size
       }
@@ -69,7 +69,7 @@ function ProductDetails() {
       } else {
         setLoading(true);
         const { data } = await axios.post(
-          `https://Prerogative-store.ayanshukla.repl.co/cart/${user.id}/${_id}`
+          `https://prerogative-store.herokuapp.com/cart/${user._id}/${_id}`
         );
         setLoading(false);
         if (data.success) {
@@ -91,7 +91,7 @@ function ProductDetails() {
       } else {
         setLoading(true);
         const { data } = await axios.post(
-          `https://Prerogative-store.ayanshukla.repl.co/wishlist/${user.id}/${_id}`
+          `https://prerogative-store.herokuapp.com/wishlist/${user._id}/${_id}`
         );
         setLoading(false);
         if (data.success) {
