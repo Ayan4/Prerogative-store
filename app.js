@@ -28,5 +28,5 @@ app.use('/category', categoryRoute);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log("server started in " + port);
+  console.log("server started in " + PORT);
 });

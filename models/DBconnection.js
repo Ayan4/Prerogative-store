@@ -8,7 +8,9 @@ const initializeConnectionDB = async () => {
         `mongodb+srv://Ayan4:${process.env.MONGO_PWD}@cluster0.ziece.mongodb.net/prerogative?retryWrites=true&w=majority`,
         {
           useNewUrlParser: true,
-          useUnifiedTopology: true
+          useUnifiedTopology: true,
+          useFindAndModify: true,
+          useCreateIndex: true
         }
       )
       console.log('db connected');
