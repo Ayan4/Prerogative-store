@@ -13,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-// create a document
+// updating a document
 router.post("/:id", async (req, res) => {
   try {
     let product = await Product.findById(req.params.id);
