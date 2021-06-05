@@ -4,7 +4,7 @@ const router = express.Router();
 const Product = require("../models/Product");
 
 // show all document
-router.get("/", async (req, res) => {
+router.get("/products", async (req, res) => {
   try {
     const products = await Product.find({});
     res.json({success: true, products});

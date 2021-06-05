@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 })
 
 app.use(bodyParser.json());
-app.use("/products", productsRoute);
+app.use("/api", productsRoute);
 app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);
 app.use("/user", userRoute);
