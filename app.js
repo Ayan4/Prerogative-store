@@ -14,6 +14,14 @@ app.use(cors());
 
 initializeConnectionDB();
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
+app.get('*', (req, res) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 app.get('/', (req, res) => {
   res.json({success: true, message: 'Prerogative ecommerce app server'});
 })
@@ -24,6 +32,7 @@ app.use("/cart", cartRoute);
 app.use("/wishlist", wishlistRoute);
 app.use("/user", userRoute);
 app.use('/category', categoryRoute);
+
 
 const PORT = process.env.PORT || 3000;
 
