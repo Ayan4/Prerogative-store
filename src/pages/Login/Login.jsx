@@ -26,13 +26,9 @@ function Login() {
       setAuthFaliureMessage(null);
       setLoading(false);
       navigate(state?.from ? state.from : "/profile", { replace: true });
-    } else if (response?.status === 401) {
+    } else {
       setUserNotFoundMessage(null);
       setAuthFaliureMessage(response.data.message);
-      setLoading(false);
-    } else if (response?.status === 403) {
-      setAuthFaliureMessage(null);
-      setUserNotFoundMessage(response.data.message);
       setLoading(false);
     }
   };
