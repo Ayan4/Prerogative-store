@@ -54,7 +54,7 @@ router.post("/login", async (req, res) => {
       res.status(404).json({ success: false, message: "Incorrect Password" });
     }
     const user = {
-      id: foundUser._id,
+      _id: foundUser._id,
       name: foundUser.name,
     }
 
