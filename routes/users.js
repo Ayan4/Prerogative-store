@@ -41,8 +41,8 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email: email });
-    if (!user) {
+    const foundUser = await User.findOne({ email: email });
+    if (!foundUser) {
       res
         .status(401)
         .json({
@@ -50,10 +50,15 @@ router.post("/login", async (req, res) => {
           message: "Email Doesn't Exist, Create An Account!"
         });
     }
-    if (user.password !== password) {
+    if (foundUser.password !== password) {
       res.status(404).json({ success: false, message: "Incorrect Password" });
     }
-    res.status(200).json({ success: true, user });
+    const user = {
+      id: foundUser._id,
+      name: foundUser.name,
+    }
+
+    res.status(200).json({success: true, user});
   } catch (error) {
     res.status(403).json({ success: false, message: "Authentication Failed" });
   }
