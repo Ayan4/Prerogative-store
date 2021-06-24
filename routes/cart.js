@@ -7,7 +7,7 @@ const {
   addToCart,
   updateCart,
   deleteCart
-} = require("../contorllers/cart");
+} = require("../controllers/cart");
 
 router.param("userId", createCart);
 router.param("id", getProduct);

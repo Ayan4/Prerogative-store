@@ -6,7 +6,7 @@ const {
   getWishlist,
   addToWishlist,
   deleteWishlist
-} = require("../contorllers/wishlist");
+} = require("../controllers/wishlist");
 
 router.param("userId", createWishlist);
 router.param("id", getProduct);

@@ -4,7 +4,7 @@ const {
   getProducts,
   updateProduct,
   getProduct
-} = require("../contorllers/products");
+} = require("../controllers/products");
 
 router.get("/", getProducts);
 router.post("/:id", updateProduct);
