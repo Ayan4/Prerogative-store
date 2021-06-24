@@ -1,26 +1,8 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const Category = require('../models/Categories');
+const { getCategories, createCategory } = require("../contorllers/categories");
 
-router.get('/', async (req, res) => {
-  try{
-    const category = await Category.find({});
-    res.status(200).json({success: true, category});
-  }catch(err){
-    res.status(400).json({success: false, message: 'Could not find category'});
-  }
-})
-
-router.post('/', async (req, res) => {
-  try{
-    const newCategory = new Category({
-      category: req.body.category
-    });
-    const category = await newCategory.save();
-    res.status(200).json({success: true, category});
-  }catch(err){
-    res.status(400).json({success: false, message: 'Could not save new category'});
-  }
-});
+router.get("/", getCategories);
+router.post("/", createCategory);
 
 module.exports = router;

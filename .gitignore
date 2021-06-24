@@ -5,3 +5,4 @@
 /.pnp
 .pnp.js
 .env
+.prettierrc
