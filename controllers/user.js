@@ -16,7 +16,7 @@ exports.userSignUp = async (req, res) => {
     const { name, email, password } = req.body;
     const findEmail = await User.findOne({ email: email });
     if (findEmail) {
-      res.status(400).json({
+      res.status(409).json({
         success: false,
         message: "Email already exists, Please Login"
       });
