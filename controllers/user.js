@@ -33,7 +33,6 @@ exports.userSignUp = async (req, res) => {
           const user = await userCreds.save();
           res.status(201).json({
             success: true,
-            user,
             message: "Acount Created Successfully"
           });
         }
