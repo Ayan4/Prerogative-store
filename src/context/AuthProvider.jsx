@@ -18,10 +18,6 @@ export const AuthProvider = ({ children }) => {
         }
       );
       if (response.data.success) {
-        // axios.interceptors.response.use(response => {
-        //   console.log(response);
-        // });
-
         setUser(response.data.user);
         localStorage?.setItem("user", JSON.stringify(response.data.user));
       }

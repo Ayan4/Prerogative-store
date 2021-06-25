@@ -5,6 +5,13 @@ import { ProductProvider } from "./context/productProvider";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./context/AuthProvider";
 import ScrollToTop from "./Components/Utils/ScrollToTop";
+import axios from "axios";
+
+axios.interceptors.request.use(request => {
+  const user = JSON.parse(localStorage?.getItem("user"));
+  request.headers.Authorization = `Bearer ${user?.token}`;
+  return request;
+});
 
 ReactDOM.render(
   <React.StrictMode>
