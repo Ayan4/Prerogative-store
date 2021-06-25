@@ -18,6 +18,10 @@ export const AuthProvider = ({ children }) => {
         }
       );
       if (response.data.success) {
+        // axios.interceptors.response.use(response => {
+        //   console.log(response);
+        // });
+
         setUser(response.data.user);
         localStorage?.setItem("user", JSON.stringify(response.data.user));
       }
@@ -43,14 +47,9 @@ export const AuthProvider = ({ children }) => {
           password
         }
       );
-      if (response.data.success) {
-        setUser(response.data.user);
-        localStorage?.setItem("user", JSON.stringify(response.data.user));
-      }
-      // console.log(response);
       return response;
     } catch (error) {
-      console.log("error occured" + error);
+      return error.response;
     }
   };
 

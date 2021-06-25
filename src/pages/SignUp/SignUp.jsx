@@ -33,9 +33,9 @@ function SignUp() {
       setValidationMsg(response.data.message);
       setLoading(false);
       setTimeout(() => {
-        navigate("/products");
-      }, 2000);
-    } else if (response.status === 200) {
+        navigate("/login");
+      }, 1000);
+    } else {
       setErrorMsg(response.data.message);
       setLoading(false);
     }

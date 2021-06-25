@@ -46,14 +46,24 @@ function App() {
   useEffect(() => {
     const fetchCartItems = async () => {
       const response = await axios.get(
-        `https://prerogative-store.herokuapp.com/cart/${user._id}`
+        `https://prerogative-store.herokuapp.com/cart/${user._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        }
       );
       dispatch({ type: "SET_CART", payload: response.data.cart.cartItems });
     };
 
     const fetchWishlistItems = async () => {
       const response = await axios.get(
-        `https://prerogative-store.herokuapp.com/wishlist/${user._id}`
+        `https://prerogative-store.herokuapp.com/wishlist/${user._id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`
+          }
+        }
       );
       dispatch({
         type: "SET_WISHLIST",
