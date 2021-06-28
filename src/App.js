@@ -2,6 +2,7 @@ import "./style.scss";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { apiClient } from "./axios/index";
 import Home from "./pages/Home/Home";
 import ProductListing from "./pages/ProductListing/ProductListing";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
@@ -22,25 +23,18 @@ function App() {
   const [loading, setLoading] = useState("");
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchProductsAndCategories = async () => {
       setLoading(true);
-      const response = await axios.get(
-        "https://prerogative-store.herokuapp.com/products"
-      );
-      dispatch({ type: "GET_PRODUCTS", payload: response.data.products });
+      const products = apiClient.get("/products");
+      const categories = apiClient.get("/category");
+
+      const response = await axios.all([products, categories]);
+
+      dispatch({ type: "GET_PRODUCTS", payload: response[0].data.products });
+      dispatch({ type: "GET_CATEGORIES", payload: response[1].data.category });
       setLoading(false);
     };
-    fetchProducts();
-  }, [dispatch]);
-
-  useEffect(() => {
-    const fetchCategories = async () => {
-      const response = await axios.get(
-        "https://prerogative-store.herokuapp.com/category"
-      );
-      dispatch({ type: "GET_CATEGORIES", payload: response.data.category });
-    };
-    fetchCategories();
+    fetchProductsAndCategories();
   }, [dispatch]);
 
   useEffect(() => {
@@ -55,13 +49,29 @@ function App() {
       const response = await axios.get(
         `https://prerogative-store.herokuapp.com/wishlist/${user._id}`
       );
+
       dispatch({
         type: "SET_WISHLIST",
         payload: response.data.wishlist.wishlistItems
       });
     };
 
+    // const fetchCartAndWishlist = async () => {
+    //   const fetchCart = apiClient.get(`/cart/${user._id}`);
+    //   const fetchWishlist = apiClient.get(`/wishlist/${user._id}`);
+
+    //   const response = await axios.all([fetchCart, fetchWishlist]);
+    //   console.log(response);
+
+    // dispatch({ type: "SET_CART", payload: response[0].data.cart.cartItems });
+    // dispatch({
+    //   type: "SET_WISHLIST",
+    //   payload: response[1].data.wishlist.wishlistItems
+    // });
+    // };
+
     user && fetchCartItems() && fetchWishlistItems();
+    // user && fetchCartAndWishlist();
   }, [dispatch, user]);
 
   return (
