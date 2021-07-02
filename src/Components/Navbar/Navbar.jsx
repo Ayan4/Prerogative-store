@@ -111,7 +111,7 @@ function Navbar({ homePage }) {
           style={{ color: homePage && iconWhiteColor }}
           className="cart-icon"
         >
-          {cart.length > 0 && (
+          {user && cart.length > 0 && (
             <span className="cart-item-count">{cart.length}</span>
           )}
           <FiShoppingCart

@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { apiClient } from "../Api/axios.instance";
 
 const authContext = createContext();
@@ -13,15 +12,19 @@ export const AuthProvider = ({ children }) => {
     apiClient.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
   }
 
+  apiClient.interceptors.response.use(null, error => {
+    if (error.response.data.message === "Unauthorized Access") {
+      logout();
+    }
+    return Promise.reject(error);
+  });
+
   const loginWithCreds = async (email, password) => {
     try {
-      const response = await axios.post(
-        "https://prerogative-store.herokuapp.com/user/login",
-        {
-          email,
-          password
-        }
-      );
+      const response = await apiClient.post("/user/login", {
+        email,
+        password
+      });
       if (response.data.success) {
         setUser(response.data.user);
         localStorage?.setItem("user", JSON.stringify(response.data.user));
@@ -41,14 +44,11 @@ export const AuthProvider = ({ children }) => {
 
   const signUpWithCreds = async (name, email, password) => {
     try {
-      const response = await axios.post(
-        "https://prerogative-store.herokuapp.com/user/signup",
-        {
-          name,
-          email,
-          password
-        }
-      );
+      const response = await apiClient.post("/user/signup", {
+        name,
+        email,
+        password
+      });
       return response;
     } catch (error) {
       return error.response;

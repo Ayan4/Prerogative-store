@@ -5,11 +5,11 @@ import { FiShoppingCart } from "react-icons/fi";
 import { BiCloset } from "react-icons/bi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import ScreenLoader from "../../pages/ScreenLoader/ScreenLoader";
-import axios from "axios";
 import fastDeliveryIcon from "../../assets/icons/fast-delivery.svg";
 import { useParams, useNavigate } from "react-router-dom";
 import { useProduct } from "../../context/productProvider";
 import { useAuth } from "../../context/AuthProvider";
+import { apiClient } from "../../Api/axios.instance";
 
 function ProductDetails() {
   const [activeSize, setActiveSize] = useState(null);
@@ -50,12 +50,9 @@ function ProductDetails() {
 
   const sizeHandler = async size => {
     setLoading(true);
-    const { data } = await axios.post(
-      `https://prerogative-store.herokuapp.com/products/${_id}`,
-      {
-        selectedSize: size
-      }
-    );
+    const { data } = await apiClient.post(`/products/${_id}`, {
+      selectedSize: size
+    });
     setLoading(false);
     if (data.response.selectedSize === size) {
       setActiveSize(data.response.selectedSize);
@@ -68,13 +65,10 @@ function ProductDetails() {
         navigate("/cart");
       } else {
         setLoading(true);
-        const { data } = await axios.post(
-          `https://prerogative-store.herokuapp.com/cart/${user._id}/${_id}`
-        );
+        const { data } = await apiClient.post(`/cart/${_id}`);
         setLoading(false);
         if (data.success) {
           dispatch({ type: "SET_CART", payload: data.response.cartItems });
-          // setCartActive(true);
         } else {
           console.log(data.msg);
         }
@@ -90,9 +84,7 @@ function ProductDetails() {
         navigate("/wishlist");
       } else {
         setLoading(true);
-        const { data } = await axios.post(
-          `https://prerogative-store.herokuapp.com/wishlist/${user._id}/${_id}`
-        );
+        const { data } = await apiClient.post(`/wishlist/${_id}`);
         setLoading(false);
         if (data.success) {
           dispatch({

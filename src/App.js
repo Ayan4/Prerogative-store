@@ -35,45 +35,22 @@ function App() {
       setLoading(false);
     };
     fetchProductsAndCategories();
-  }, [dispatch]);
+  }, [user, dispatch]);
 
   useEffect(() => {
-    const fetchCartItems = async () => {
-      // const response = await axios.get(
-      //   `https://prerogative-store.herokuapp.com/cart/${user._id}`
-      // );
-      const response = await apiClient.get(`/cart`);
-      dispatch({ type: "SET_CART", payload: response.data.cart.cartItems });
-    };
+    const fetchCartAndWishlist = async () => {
+      const fetchCart = apiClient.get("/cart");
+      const fetchWishlist = apiClient.get("/wishlist");
 
-    const fetchWishlistItems = async () => {
-      // const response = await axios.get(
-      //   `https://prerogative-store.herokuapp.com/wishlist/${user._id}`
-      // );
-      const response = await apiClient.get(`/wishlist`);
+      const response = await axios.all([fetchCart, fetchWishlist]);
 
+      dispatch({ type: "SET_CART", payload: response[0].data.cart.cartItems });
       dispatch({
         type: "SET_WISHLIST",
-        payload: response.data.wishlist.wishlistItems
+        payload: response[1].data.wishlist.wishlistItems
       });
     };
-
-    // const fetchCartAndWishlist = async () => {
-    //   const fetchCart = apiClient.get(`/cart/${user._id}`);
-    //   const fetchWishlist = apiClient.get(`/wishlist/${user._id}`);
-
-    //   const response = await axios.all([fetchCart, fetchWishlist]);
-    //   console.log(response);
-
-    // dispatch({ type: "SET_CART", payload: response[0].data.cart.cartItems });
-    // dispatch({
-    //   type: "SET_WISHLIST",
-    //   payload: response[1].data.wishlist.wishlistItems
-    // });
-    // };
-
-    user && fetchCartItems() && fetchWishlistItems();
-    // user && fetchCartAndWishlist();
+    user && fetchCartAndWishlist();
   }, [dispatch, user]);
 
   return (

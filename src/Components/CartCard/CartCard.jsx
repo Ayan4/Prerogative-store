@@ -1,16 +1,14 @@
 import "./CartCard.scss";
 import { useProduct } from "../../context/productProvider";
-import { useAuth } from "../../context/AuthProvider";
 import { Link } from "react-router-dom";
 import { BiTrash, BiPlus, BiMinus } from "react-icons/bi";
 import { FiBookmark } from "react-icons/fi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import EmptyCart from "../EmptyCart/EmptyCart";
-import axios from "axios";
+import { apiClient } from "../../Api/axios.instance";
 
 function CartCard({ setLoading }) {
   const { cart, wishlist, dispatch } = useProduct();
-  const { user } = useAuth();
 
   const itemInWishlist = id => {
     return wishlist.map(item => item.product._id).includes(id);
@@ -21,12 +19,9 @@ function CartCard({ setLoading }) {
     if (type === "decrease") {
       if (cartItem.quantity > 1) {
         setLoading(true);
-        const response = await axios.patch(
-          `https://prerogative-store.herokuapp.com/cart/${user._id}/${cartItem._id}`,
-          {
-            quantity: cartItem.quantity - 1
-          }
-        );
+        const response = await apiClient.patch(`/cart/${cartItem._id}`, {
+          quantity: cartItem.quantity - 1
+        });
         setLoading(false);
         if (response.data.success) {
           dispatch({ type: "DECREASE", payload: cartItem._id });
@@ -35,9 +30,7 @@ function CartCard({ setLoading }) {
         }
       } else {
         setLoading(true);
-        const response = await axios.delete(
-          `https://prerogative-store.herokuapp.com/cart/${user._id}/${cartItem._id}`
-        );
+        const response = await apiClient.delete(`/cart/${cartItem._id}`);
         setLoading(false);
         if (response.data.success) {
           dispatch({ type: "REMOVE_CART", payload: cartItem });
@@ -45,12 +38,9 @@ function CartCard({ setLoading }) {
       }
     } else {
       setLoading(true);
-      const response = await axios.patch(
-        `https://prerogative-store.herokuapp.com/cart/${user._id}/${cartItem._id}`,
-        {
-          quantity: cartItem.quantity + 1
-        }
-      );
+      const response = await apiClient.patch(`/cart/${cartItem._id}`, {
+        quantity: cartItem.quantity + 1
+      });
       setLoading(false);
       if (response.data.success) {
         dispatch({ type: "INCREASE", payload: cartItem._id });
@@ -63,9 +53,7 @@ function CartCard({ setLoading }) {
   const removeCartHandler = async (cartItem, event) => {
     event.preventDefault();
     setLoading(true);
-    const { data } = await axios.delete(
-      `https://prerogative-store.herokuapp.com/cart/${user._id}/${cartItem._id}`
-    );
+    const { data } = await apiClient.delete(`/cart/${cartItem._id}`);
     setLoading(false);
     if (data.success) {
       dispatch({ type: "REMOVE_CART", payload: cartItem });
@@ -77,9 +65,7 @@ function CartCard({ setLoading }) {
   const moveToWishlistHandler = async (product, event) => {
     event.preventDefault();
     setLoading(true);
-    const { data } = await axios.post(
-      `https://prerogative-store.herokuapp.com/wishlist/${user._id}/${product.product._id}`
-    );
+    const { data } = await apiClient.post(`/wishlist/${product.product._id}`);
     setLoading(false);
     if (data.success) {
       dispatch({ type: "SET_WISHLIST", payload: data.wishlist.wishlistItems });

@@ -1,19 +1,17 @@
 import "./WishlistCard.scss";
 import { useState } from "react";
 import { useProduct } from "../../context/productProvider";
-import { useAuth } from "../../context/AuthProvider";
 import { BiTrash } from "react-icons/bi";
 import { FiShoppingCart, FiBookmark } from "react-icons/fi";
 import { AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { apiClient } from "../../Api/axios.instance";
 import EmptyCart from "../EmptyCart/EmptyCart";
 import ScreenLoader from "../../pages/ScreenLoader/ScreenLoader";
 
 function WishlistCard() {
   const { wishlist, cart, dispatch } = useProduct();
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
 
   const itemInCart = id => {
     return cart.map(item => item.product._id).includes(id);
@@ -22,9 +20,7 @@ function WishlistCard() {
   const removeWishlistHandler = async (product, event) => {
     event.preventDefault();
     setLoading(true);
-    const { data } = await axios.delete(
-      `https://prerogative-store.herokuapp.com/wishlist/${user._id}/${product._id}`
-    );
+    const { data } = await apiClient.delete(`/wishlist/${product._id}`);
     setLoading(false);
     if (data.success) {
       dispatch({ type: "REMOVE_WISHLIST", payload: product });
@@ -36,9 +32,7 @@ function WishlistCard() {
   const moveToCartHandler = async (product, event) => {
     event.preventDefault();
     setLoading(true);
-    const { data } = await axios.post(
-      `https://prerogative-store.herokuapp.com/cart/${user._id}/${product.product._id}`
-    );
+    const { data } = await apiClient.post(`/cart/${product.product._id}`);
     setLoading(false);
     if (data.success) {
       removeWishlistHandler(product, event);
