@@ -2,7 +2,9 @@ const Cart = require('../models/Cart');
 const Wishlist = require('../models/Wishlist');
 const Product = require('../models/Product');
 
-exports.createCart = async (req, res, next, id) => {
+exports.createCart = async (req, res, next) => {
+  const id = req.user.userId;
+  console.log({id});
   try{
     const cart = await Cart.findById(id);
     if(cart){
@@ -20,7 +22,9 @@ exports.createCart = async (req, res, next, id) => {
   }
 };
 
-exports.createWishlist = async (req, res, next, id) => {
+exports.createWishlist = async (req, res, next) => {
+  const id = req.user.userId;
+  console.log({id});
   try{
     const wishlist = await Wishlist.findById(id);
     if(wishlist){
