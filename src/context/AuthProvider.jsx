@@ -1,12 +1,17 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { apiClient } from "../Api/axios.instance";
 
 const authContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+
+  if (user) {
+    apiClient.defaults.headers.common["Authorization"] = `Bearer ${user.token}`;
+  }
 
   const loginWithCreds = async (email, password) => {
     try {
@@ -30,6 +35,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     localStorage?.removeItem("user");
     setUser(null);
+    delete apiClient.defaults.headers.common["Authorization"];
     navigate("/");
   };
 

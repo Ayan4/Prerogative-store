@@ -5,7 +5,8 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useProduct } from "../../context/productProvider";
 import { useAuth } from "../../context/AuthProvider";
-import axios from "axios";
+// import axios from "axios";
+import { apiClient } from "../../Api/axios.instance";
 
 function ProductCard({ productData, dispatch }) {
   const [wishlistActive, setWishlistActive] = useState(false);
@@ -30,9 +31,10 @@ function ProductCard({ productData, dispatch }) {
         navigate("/cart");
       } else {
         setLoading(true);
-        const { data } = await axios.post(
-          `https://prerogative-store.herokuapp.com/cart/${user._id}/${productData._id}`
-        );
+        // const { data } = await axios.post(
+        //   `https://prerogative-store.herokuapp.com/cart/${user._id}/${productData._id}`
+        // );
+        const { data } = await apiClient.post(`/cart/${productData._id}`);
         setLoading(false);
         if (data.success) {
           setCartActive(true);
@@ -51,9 +53,10 @@ function ProductCard({ productData, dispatch }) {
     if (user) {
       if (!wishlistActive) {
         setLoading(true);
-        const { data } = await axios.post(
-          `https://prerogative-store.herokuapp.com/wishlist/${user._id}/${productData._id}`
-        );
+        // const { data } = await axios.post(
+        //   `https://prerogative-store.herokuapp.com/wishlist/${user._id}/${productData._id}`
+        // );
+        const { data } = await apiClient.post(`/wishlist/${productData._id}`);
         setLoading(false);
         if (data.success) {
           dispatch({

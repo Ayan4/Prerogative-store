@@ -2,7 +2,7 @@ import "./style.scss";
 import { Routes, Route } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { apiClient } from "./axios/index";
+import { apiClient } from "./Api/axios.instance";
 import Home from "./pages/Home/Home";
 import ProductListing from "./pages/ProductListing/ProductListing";
 import ProductDetails from "./pages/ProductDetails/ProductDetails";
@@ -39,16 +39,18 @@ function App() {
 
   useEffect(() => {
     const fetchCartItems = async () => {
-      const response = await axios.get(
-        `https://prerogative-store.herokuapp.com/cart/${user._id}`
-      );
+      // const response = await axios.get(
+      //   `https://prerogative-store.herokuapp.com/cart/${user._id}`
+      // );
+      const response = await apiClient.get(`/cart`);
       dispatch({ type: "SET_CART", payload: response.data.cart.cartItems });
     };
 
     const fetchWishlistItems = async () => {
-      const response = await axios.get(
-        `https://prerogative-store.herokuapp.com/wishlist/${user._id}`
-      );
+      // const response = await axios.get(
+      //   `https://prerogative-store.herokuapp.com/wishlist/${user._id}`
+      // );
+      const response = await apiClient.get(`/wishlist`);
 
       dispatch({
         type: "SET_WISHLIST",
