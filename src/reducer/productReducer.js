@@ -1,3 +1,13 @@
+export const initialState = {
+  products: [],
+  categories: [],
+  cart: [],
+  wishlist: [],
+  sortBy: null,
+  showFastDelivery: false,
+  showOutOfStock: false
+};
+
 export const productReducer = (state, action) => {
   switch (action.type) {
     case "SORT":

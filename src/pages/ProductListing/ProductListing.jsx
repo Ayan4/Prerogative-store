@@ -47,7 +47,6 @@ function ProductListing() {
   };
 
   const productsOfCategory = getCategoryData();
-  // console.log(productsOfCategory);
   const sortedData = getSortedData(productsOfCategory, sortBy);
   const filteredData = getFilteredData(
     sortedData,
