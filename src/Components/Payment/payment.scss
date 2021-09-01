@@ -1,0 +1,12 @@
+@import "../../style.scss";
+@import "../../Components//Breakpoints.scss";
+
+.payment-div {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+
+  div {
+    z-index: 1;
+  }
+}

@@ -161,7 +161,7 @@
           background: transparent;
           border-bottom: 1px solid #a5a5a5;
           width: 100%;
-          margin-bottom: 3rem;
+          margin-bottom: 2.7rem;
           padding: 0.7rem 0.7rem 0.7rem 0rem;
           outline: transparent;
           font-size: 16px;
@@ -202,10 +202,12 @@
 
         .login-btn-wrapper {
           position: relative;
+          margin-top: 1rem;
 
           img {
-            position: absolute;
             // border: $debug;
+            position: absolute;
+            top: 8px;
             width: 2rem;
             bottom: 13px;
             left: 50%;
@@ -214,7 +216,6 @@
           }
 
           .login-btn {
-            margin-top: 1rem;
             width: 100%;
             padding: 0.7rem;
             background: $black-secondary;
@@ -231,10 +232,24 @@
             }
           }
         }
+
+        .guest-btn-wrapper {
+          margin-top: 1.5rem;
+          text-align: center;
+          width: 100%;
+          padding: 0.7rem;
+          font-family: $font-secondary;
+          font-size: 17px;
+          color: $main-color;
+          border: 2px solid $main-color-secondary;
+          border-radius: 3px;
+          cursor: pointer;
+          transition: all 0.1s ease-out;
+        }
       }
 
       .signup-text {
-        margin-top: 3rem;
+        margin-top: 2.5rem;
         font-family: $font-secondary;
         color: $black-secondary;
 

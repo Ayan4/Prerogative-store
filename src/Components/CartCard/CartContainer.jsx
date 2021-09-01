@@ -1,13 +1,22 @@
 import "./CartContainer.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProduct } from "../../context/productProvider";
 import { FiShoppingCart } from "react-icons/fi";
 import ScreenLoader from "../../pages/ScreenLoader/ScreenLoader";
 import CartCard from "./CartCard";
+import { useNavigate } from "react-router";
 
 function CartContainer() {
   const { cart } = useProduct();
   const [loading, setLoading] = useState(false);
+  const [checkout, setCheckout] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setCheckout(false);
+  }, []);
+
+  checkout && navigate("/checkout");
 
   const cartTotal = cart.map(item => {
     const totalArr = item.quantity * item.product.price;
@@ -38,7 +47,9 @@ function CartContainer() {
             <p className="cart-total-text">Cart Total</p>
             <p className="cart-total-amount">${cartTotalSum}</p>
           </div>
-          <button className="place-order">Place Order</button>
+          <button onClick={() => setCheckout(true)} className="place-order">
+            Place Order
+          </button>
         </div>
       ) : null}
     </div>

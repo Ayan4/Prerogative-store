@@ -14,6 +14,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [authFaliureMessage, setAuthFaliureMessage] = useState(null);
   const [userNotFoundMessage, setUserNotFoundMessage] = useState(null);
+  const [isDisable, setIsDisable] = useState(false);
   const navigate = useNavigate();
   const { register, handleSubmit } = useForm();
   const { state } = useLocation();
@@ -30,6 +31,27 @@ function Login() {
       setUserNotFoundMessage(null);
       setAuthFaliureMessage(response.data.message);
       setLoading(false);
+    }
+  };
+
+  const guestLoginHandler = async () => {
+    setLoading(true);
+    setIsDisable(true);
+    const response = await loginWithCreds(
+      "ayanshukla4@gmail.com",
+      "killa4zilla"
+    );
+    if (response?.status === 200) {
+      setUserNotFoundMessage(null);
+      setAuthFaliureMessage(null);
+      setLoading(false);
+      setIsDisable(false);
+      navigate(state?.from ? state.from : "/profile", { replace: true });
+    } else {
+      setUserNotFoundMessage(null);
+      setAuthFaliureMessage(response.data.message);
+      setLoading(false);
+      setIsDisable(false);
     }
   };
 
@@ -58,6 +80,8 @@ function Login() {
                 type="email"
                 {...register("email")}
                 required
+                autoComplete="off"
+                disabled={isDisable}
               />
 
               <input
@@ -66,6 +90,7 @@ function Login() {
                 type="password"
                 {...register("password")}
                 required
+                disabled={isDisable}
               />
               {authFaliureMessage ? (
                 <div className="warning-modal">
@@ -83,10 +108,14 @@ function Login() {
                 {loading && <img src={loadingAnimation} alt="" />}
                 <input
                   className="login-btn"
-                  value={loading ? "" : "Login"}
+                  value={!loading ? "Login" : ""}
                   type="submit"
                 />
               </div>
+
+              <button onClick={guestLoginHandler} className="guest-btn-wrapper">
+                Or login as a Guest
+              </button>
             </form>
             <p className="signup-text">
               Don't Have An Account Yet ?{" "}
