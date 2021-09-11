@@ -97,7 +97,7 @@ function CartCard({ setLoading }) {
                       <p className="cart-brand-text"> {item.product.brand} </p>
 
                       <div className="cart-price-box">
-                        <p className="cart-card-price">${item.product.price}</p>
+                        <p className="cart-card-price">₹{item.product.price}</p>
                       </div>
                     </div>
                     <p className="cart-item-name"> {item.product.name} </p>

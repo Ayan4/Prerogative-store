@@ -106,8 +106,8 @@ function ProductCard({ productData, dispatch }) {
             ></FiBookmark>
 
             <div>
-              <p className="product-price">${productData.price}</p>
-              <p className="product-price-strike">${productData.price}</p>
+              <p className="product-price">₹{productData.price}</p>
+              <p className="product-price-strike">₹{productData.price}</p>
             </div>
           </div>
         </div>

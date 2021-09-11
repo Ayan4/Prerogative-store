@@ -136,8 +136,8 @@ function ProductDetails() {
               </div>
               <div className="product-details-info">
                 <div className="product-details-price-box">
-                  <p className="product-details-price">${price}</p>
-                  <p className="product-details-price-strike">${price}</p>
+                  <p className="product-details-price">₹{price}</p>
+                  <p className="product-details-price-strike">₹{price}</p>
                 </div>
                 {fastDelivery && <img src={fastDeliveryIcon} alt="" />}
               </div>

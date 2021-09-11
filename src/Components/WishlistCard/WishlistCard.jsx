@@ -74,7 +74,7 @@ function WishlistCard() {
 
                         <div className="wishlist-price-box">
                           <p className="wishlist-card-price">
-                            ${item.product.price}
+                            ₹{item.product.price}
                           </p>
                         </div>
                       </div>

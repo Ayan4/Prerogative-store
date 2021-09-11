@@ -22,25 +22,31 @@ function ProductListing() {
   const queryParam = useQuery().get("category");
 
   const getCategoryData = () => {
+    const transformedProducts = [...products];
+
     if (queryParam) {
-      return products.filter(item => item.category === queryParam);
+      return transformedProducts.filter(item => item.category === queryParam);
     }
-    return products;
+    return transformedProducts;
   };
 
   const getFilteredData = (productsArr, showFastDelivery, showOutOfStock) => {
-    return productsArr
+    const transformedProducts = [...productsArr];
+
+    return transformedProducts
       .filter(item => (showFastDelivery ? item.fastDelivery : true))
       .filter(item => (!showOutOfStock ? item.inStock : true));
   };
 
   const getSortedData = (productsArr, sortBasis) => {
+    const transformedProducts = [...productsArr];
+
     if (sortBasis === "Low To High") {
-      productsArr.sort((a, b) => a.price - b.price);
+      return transformedProducts.sort((a, b) => a.price - b.price);
     }
 
     if (sortBasis === "High To Low") {
-      productsArr.sort((a, b) => b.price - a.price);
+      return transformedProducts.sort((a, b) => b.price - a.price);
     }
 
     return productsArr;

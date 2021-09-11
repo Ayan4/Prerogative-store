@@ -13,7 +13,6 @@ import ScreenLoader from "./pages/ScreenLoader/ScreenLoader";
 import { useAuth } from "./context/AuthProvider";
 import { useProduct } from "./context/productProvider";
 import PrivateRoute from "./PrivateRoutes/PrivateRoute";
-import Payment from "./Components/Payment/Payment";
 
 function App() {
   const { user } = useAuth();
@@ -33,7 +32,6 @@ function App() {
           />
           <PrivateRoute path="/wishlist" login={user} element={<Wishlist />} />
           <PrivateRoute path="/cart" login={user} element={<Cart />} />
-          <PrivateRoute path="/checkout" login={user} element={<Payment />} />
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/profile" element={<Profile />}></Route>

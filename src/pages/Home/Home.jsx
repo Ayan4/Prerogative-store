@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ties from "../../assets/tie.jpg";
 import belts from "../../assets/belt.jpg";
 import shoes from "../../assets/brown-shoe.jpg";
@@ -11,6 +11,8 @@ import { useProduct } from "../../context/productProvider";
 
 function Home({ clickHandler }) {
   const { products } = useProduct();
+
+  const location = useLocation();
 
   // console.log(products);
 
@@ -48,16 +50,35 @@ function Home({ clickHandler }) {
           <p className="categories-heading">Categories</p>
 
           <div className="category-slider">
-            <Link to="/products" className="category-box">
+            <Link
+              to={
+                location.pathname !== "/products"
+                  ? `/products?category=Ties`
+                  : `?category=Ties`
+              }
+              className="category-box"
+            >
               <img src={ties} alt="" />
               <p className="category-box-label">Ties</p>
             </Link>
-            <Link to="/products" className="category-box">
+
+            <Link
+              to={
+                location.pathname !== "/products"
+                  ? `/products?category=Belts`
+                  : `?category=Belts`
+              }
+              className="category-box"
+            >
               <img src={belts} alt="" />
               <p className="category-box-label">Belts</p>
             </Link>
             <Link
-              to="/products"
+              to={
+                location.pathname !== "/products"
+                  ? `/products?category=Shoes`
+                  : `?category=Shoes`
+              }
               className="category-box category-box-second-last"
             >
               <img src={shoes} alt="" />
@@ -88,7 +109,7 @@ function Home({ clickHandler }) {
                   <img src={item.image} alt="" />
                   <div className="featured-card-info">
                     <p className="featured-card-title"> {item.name} </p>
-                    <p className="featured-card-price">${item.price} </p>
+                    <p className="featured-card-price">₹{item.price} </p>
                   </div>
                 </Link>
               );

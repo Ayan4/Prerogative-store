@@ -19,40 +19,43 @@ function Login() {
   const { register, handleSubmit } = useForm();
   const { state } = useLocation();
 
-  const loginHandler = async data => {
-    setLoading(true);
-    const response = await loginWithCreds(data.email, data.password);
-    if (response?.status === 200) {
-      setUserNotFoundMessage(null);
-      setAuthFaliureMessage(null);
-      setLoading(false);
-      navigate(state?.from ? state.from : "/profile", { replace: true });
-    } else {
-      setUserNotFoundMessage(null);
-      setAuthFaliureMessage(response.data.message);
-      setLoading(false);
-    }
+  const guestLogin = () => {
+    return loginWithCreds("guestemail@gmail.com", "password");
   };
 
-  const guestLoginHandler = async () => {
+  const userLogin = (email, password) => {
+    return loginWithCreds(email, password);
+  };
+
+  const loginHandler = async (data, e) => {
+    const guest = e.target.className;
     setLoading(true);
     setIsDisable(true);
-    const response = await loginWithCreds(
-      "ayanshukla4@gmail.com",
-      "killa4zilla"
-    );
+
+    let response;
+
+    if (guest === "guest-btn-wrapper") {
+      response = await guestLogin();
+    } else {
+      response = await userLogin(data.email, data.password);
+    }
+
+    responseHandler(response);
+  };
+
+  const responseHandler = response => {
     if (response?.status === 200) {
       setUserNotFoundMessage(null);
       setAuthFaliureMessage(null);
       setLoading(false);
-      setIsDisable(false);
       navigate(state?.from ? state.from : "/profile", { replace: true });
     } else {
       setUserNotFoundMessage(null);
       setAuthFaliureMessage(response.data.message);
       setLoading(false);
-      setIsDisable(false);
     }
+
+    return response;
   };
 
   const signUpHandler = () => {
@@ -110,13 +113,17 @@ function Login() {
                   className="login-btn"
                   value={!loading ? "Login" : ""}
                   type="submit"
+                  disabled={isDisable}
                 />
               </div>
-
-              <button onClick={guestLoginHandler} className="guest-btn-wrapper">
-                Or login as a Guest
-              </button>
             </form>
+            <button
+              onClick={e => loginHandler(null, e)}
+              className="guest-btn-wrapper"
+              disabled={isDisable}
+            >
+              Or login as a Guest
+            </button>
             <p className="signup-text">
               Don't Have An Account Yet ?{" "}
               <span className="signup-btn" onClick={signUpHandler}>
