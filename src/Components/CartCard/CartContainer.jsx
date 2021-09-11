@@ -6,7 +6,6 @@ import ScreenLoader from "../../pages/ScreenLoader/ScreenLoader";
 import CartCard from "./CartCard";
 import { apiClient } from "../../Api/axios.instance";
 import { useAuth } from "../../context/AuthProvider";
-import loadingAnimation from "../../assets/loader.svg";
 
 const loadScript = src => {
   return new Promise(resolve => {
