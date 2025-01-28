@@ -1,0 +1,164 @@
+@import "../../style.scss";
+@import "../Breakpoints.scss";
+
+.product-card-link {
+  text-decoration: none;
+  display: flex;
+}
+
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  @include media("<=768px") {
+    padding: 0px;
+    border-radius: 0px;
+  }
+
+  @include media(">=768px") {
+    &:hover {
+      box-shadow: 0 6px 42px -11px rgba(0, 0, 0, 0.25);
+    }
+  }
+
+  .product-img-wrapper {
+    position: relative;
+
+    .out-of-stock-message {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      z-index: 2;
+      align-items: center;
+      padding: 0.5rem;
+      background: rgba(0, 0, 0, 0.5);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      .hanger-icon {
+        color: $white-secondary;
+        font-size: 3rem;
+      }
+
+      p {
+        color: $white-secondary;
+        font-weight: 500;
+        text-align: center;
+      }
+    }
+  }
+
+  .out-of-stock-img {
+    opacity: 0.5;
+  }
+
+  .product-info {
+    .product-price-box {
+      .wishlist-active {
+        fill: $black-secondary;
+      }
+    }
+  }
+
+  .product-addToCart-btn {
+    & p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:hover {
+      background: $black-secondary;
+      color: $white-secondary;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    // dots loader
+
+    .lds-ellipsis {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .lds-ellipsis div {
+      position: absolute;
+      top: 36px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #a87356;
+      animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    }
+    .lds-ellipsis div:nth-child(1) {
+      left: 8px;
+      animation: lds-ellipsis1 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(2) {
+      left: 8px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(3) {
+      left: 32px;
+      animation: lds-ellipsis2 0.6s infinite;
+    }
+    .lds-ellipsis div:nth-child(4) {
+      left: 56px;
+      animation: lds-ellipsis3 0.6s infinite;
+    }
+    @keyframes lds-ellipsis1 {
+      0% {
+        transform: scale(0);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+    @keyframes lds-ellipsis3 {
+      0% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0);
+      }
+    }
+    @keyframes lds-ellipsis2 {
+      0% {
+        transform: translate(0, 0);
+      }
+      100% {
+        transform: translate(24px, 0);
+      }
+    }
+  }
+
+  .product-go-cart-btn {
+    background: transparent;
+    border: none;
+    color: $main-color;
+    width: 100%;
+    height: 40px;
+    border-radius: 1px;
+    margin-top: 10px;
+    font-family: $font-secondary;
+    transition: all 0.1s ease-out;
+    border: 2px $main-color solid;
+    font-weight: 500;
+
+    & p {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &:hover {
+      background: $main-color;
+      color: $white-secondary;
+      cursor: pointer;
+      font-weight: 500;
+    }
+  }
+}
